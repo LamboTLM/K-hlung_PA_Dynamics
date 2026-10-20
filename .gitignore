@@ -8,3 +8,54 @@
 
 # Files
 main.pdf
+
+# KI Empfehlung ab hier. Große vorsicht
+# ================= لعاب / LaTeX Auxiliary Files =================
+*.aux
+*.log
+*.toc
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.nav
+*.snm
+*.vrb
+*.upa
+*.upb
+
+# Indices and Bibliographies
+*.ind
+*.ilg
+*.idx
+*.lof
+*.lot
+*.lol
+
+# ================= PDF Files =================
+# Entweder alle PDFs ignorieren:
+*.pdf
+# Oder nur bestimmte, falls du die Hauptdatei manuell trackst:
+# main.pdf
+
+# ================= VS Code =================
+.history/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# ================= OS Specific (Cache / Dotfiles) =================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ================= Cloud Storage =================
+.synced
+.dropbox
+.dropbox.attr
