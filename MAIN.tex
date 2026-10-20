@@ -1,0 +1,84 @@
+\documentclass[12pt, a4paper]{report}
+\input{Miscellaneous/include.tex}
+ \input{Miscellaneous/layout.tex}
+ \input{Miscellaneous/commands.tex}
+ \addbibresource{Miscellaneous/bibliography.bib}
+
+\begin{document}
+
+\setlength{\extrarowheight}{4pt}
+
+\newcommand{\studierenderNameone}{Daniel Lambrecht}
+\studentone{\studierenderNameone}
+{0000000}
+{MB 6}
+
+\newcommand{\studierenderNametwo}{Tobias Plenk}
+\studenttwo{\studierenderNametwo}
+{0000000}
+{MB 6}
+
+\Titelseite{}
+{1}
+{Projektarbeit}
+{Vorentwicklung und Simulationsbildung für die Kühlung eines Formuala Student Rennwagen}
+{Prof. Dr. Wagner}
+{\today}
+
+\thispagestyle{empty}
+~\pagebreak
+\onehalfspacing
+
+
+\include{Miscellaneous/Sperrvermerk}
+\include{Miscellaneous/declaration}
+\include{Miscellaneous/Danksagung}
+\include{Chapters/Abstract}
+
+\pagenumbering{Roman}
+\setcounter{page}{1}
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+\pagebreak
+
+\listoffigures
+\pagebreak
+
+\listoftables
+\pagebreak
+
+\chapter*{Abkürzungsverzeichnis}
+\begin{acronym}[KDE]
+\input{Miscellaneous/Akronyme.tex}
+\end{acronym}
+\pagebreak
+
+\renewcommand{\nomname}{Formelzeichen}
+\makenomenclature
+\input{Miscellaneous/Nomenclature}
+\printnomenclature
+\pagebreak
+
+\pagenumbering{arabic}
+
+
+\include{Chapters/Einleitung.tex}
+\include{Chapters/ZielDerArbeit}
+\include{Chapters/DefinitionderProblemstellung}
+\include{Chapters/Benchmarking}
+\include{Chapters/MesstechnikundSystemarchitektur}
+\include{Chapters/Systemmodellierung_Matlab}
+\include{Chapters/CFDundThermische_Simulation}
+\include{Chapters/Konstruktive_Umsetzung_und_Hardware_Integration}
+\include{Chapters/Konstruktionsbegründung}
+\include{Chapters/Fazit und Ausblick}
+
+\chapter*{Literaturverzeichnis}
+\printbibliography[title={Literaturverzeichnis}]
+\section{Bücher}
+\printbibliography[type=book,heading=none]
+\section{Webseiten}
+\printbibliography[type=online,heading=none]
+
+\end{document}

@@ -1,0 +1,12 @@
+\nomenclatureentry{$C_P$$C_P$@[{$C_P$}]\begingroup Druckkoeffizient\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{$P$$P$@[{$P$}]\begingroup statischer Druck [Pa]\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{$P_\infty$$P_\infty$@[{$P_\infty$}]\begingroup Umgebungsdruck [Pa]\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{$\rho$$\rho$@[{$\rho$}]\begingroup Luftdichte [\SI{}{\kilo\gram\per\meter\cubed}]\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{$v_\infty$$v_\infty$@[{$v_\infty$}]\begingroup Simulationsgeschwindigkeit [\SI{}{\meter\per\second}]\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{$C_{TP}$$C_{TP}$@[{$C_{TP}$}]\begingroup Gesamtdruckkoeffizient\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{$C_L$$C_L$@[{$C_L$}]\begingroup Abtriebskoeffizient\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{$C_D$$C_D$@[{$C_D$}]\begingroup Luftwiderstandskoeffizient\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{$P_{dyn}$$P_{dyn}$@[{$P_{dyn}$}]\begingroup Dynamischer Druck [Pa]\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{$A_{Front}$$A_{Front}$@[{$A_{Front}$}]\begingroup Frontale Fläche [\SI{}{\meter\squared}]\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{$F_Z$$F_Z$@[{$F_Z$}]\begingroup Kraft in z-Richtung [N]\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{$F_X$$F_X$@[{$F_X$}]\begingroup Kraft in x-Richtung [N]\nomeqref {0}|nompageref}{1}
