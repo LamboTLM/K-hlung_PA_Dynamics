@@ -1,0 +1,101 @@
+\section{Systemmodellierung in Matlab/Simulink}
+
+\subsection{Aufbau des thermischen Netzwerkmodells (0D/1D)}
+In diesem Abschnitt wird die grundlegende Architektur des Simulationsmodells beschrieben. Fokus liegt auf der Abstraktion der physikalischen Komponenten in konzentrierte Parameter.
+\begin{itemize}
+    \item \textbf{Diskretisierung der Komponenten:} Aufteilung des Kühlkreislaufs in thermische Massen (Knoten) und thermische Widerstände.
+    \item \textbf{Energiebilanzgleichungen:} Aufstellung der Differentialgleichungen für die instationäre Temperaturänderung $\dot{Q} = m \cdot c_p \cdot \frac{dT}{dt}$.
+    \item \textbf{Fluid-Eigenschaften:} Implementierung von temperaturabhängigen Stoffwerten für Kühlwasser (Glykol-Gemisch) und Luft.
+\end{itemize}
+
+\subsection{Modellierung der Wärmeübertrager}
+Der Kühler ist das zentrale Element zur Wärmeabfuhr. Hier wird die mathematische Abbildung der Wärmeübertragung definiert.
+\begin{itemize}
+    \item \textbf{$\varepsilon$-NTU-Verfahren oder LMTD-Methode:} Wahl des Berechnungsansatzes für den Wärmestrom zwischen Fluid und Umgebungsluft.
+    \item \textbf{Kühler-Kennfelder:} Implementierung von experimentell ermittelten Wirkungsgraden in Abhängigkeit von Massenstrom und Anströmgeschwindigkeit.
+    \item \textbf{Ölkühler-Integration:} Kopplung des Ölkreislaufs mit dem Wasserkreislauf (Wasser-Öl-Wärmetauscher).
+\end{itemize}
+
+\subsection{Aktoren und Regelungsorgane}
+Dieser Teil beschreibt die hydraulischen und mechanischen Komponenten, die den Volumenstrom beeinflussen.
+\begin{itemize}
+    \item \textbf{Pumpenkennlinien:} Modellierung der elektrischen Wasserpumpe mittels Look-up-Tables (Druckdifferenz vs. Volumenstrom vs. Spannung).
+    \item \textbf{Thermostatregelung:} Abbildung der Kennlinie des Thermostatventils (Öffnungsgrad über der Temperatur) zur Steuerung des Kurzschluss- vs. Hauptkreislaufs.
+    \item \textbf{Lüftermodelle:} Modellierung des induzierten Luftmassenstroms durch die Kühlerlüfter bei geringen Fahrgeschwindigkeiten.
+\end{itemize}
+
+\subsection{Einspeisung von Streckendaten und Fahrzyklen}
+Damit das Modell realistische Ergebnisse liefert, müssen dynamische Randbedingungen definiert werden.
+\begin{itemize}
+    \item \textbf{Datenvorverarbeitung:} Import von GPS-Daten, Geschwindigkeitsprofilen und Lastzuständen aus realen Testfahrten oder Rundenzeitsimulationen.
+    \item \textbf{Lastkollektive:} Definition der thermischen Lastvorgaben für Motor/Inverter/Batterie in Abhängigkeit von der Fahrpedalstellung und Drehzahl.
+    \item \textbf{Simulationsumgebung:} Aufbau der Signalstruktur zur dynamischen Ansteuerung des Modells während der Zeitbereichssimulation.
+\end{itemize}
+
+\subsection{Parameteridentifikation und Validierung}
+Abschluss der Modellbildung durch den Abgleich mit der Realität.
+\begin{itemize}
+    \item \textbf{Abgleich mit Messdaten:} Nutzung von Sensordaten (Temperaturfühler Ein-/Auslass) zur Kalibrierung von Wärmeübergangskoeffizienten.
+    \item \textbf{Optimierungsalgorithmen:} Einsatz der Matlab Optimization Toolbox zur Bestimmung unbekannter Modellparameter (z.B. Reibungsverluste in den Leitungen).
+    \item \textbf{Sensitivitätsanalyse:} Untersuchung des Einflusses kritischer Parameter auf die maximale Systemtemperatur.
+\end{itemize}
+
+
+% \subsection{Simulink modell}
+
+% \subsubsection{Driver Modell}
+% Bei der Erstellung des Fahrermodells wurde Wert gelegt ein Möglichts Simples Fahrermodell welches druch Entweder Rundenzeitsimulation oder direkte Fahrzeuglogging daten gefüttert wird zu erstellen. In sofern fällt hier nur noch die Rolle der Datenaufbereitung und weitergabe an die Zustandsmodelle. In Zukunftigen arbeiten kann hier wert auf eine Implementierung der VCU Logik gelegt werden um eine direkte einbindung der Kühlungsmodelle in die Rundenzeit Simulation zu ermöglichen und hier On the line Paramteterstudien mit Live effekten auf das Fahrzeugverhalten durchzuführen.
+% (Bild von Fahrermodell)
+
+
+% \subsubsection{Inverterkreislaufmodell}
+% In diesem finden sich die 4 Inverter Verschlatne wie diese auch in der Eigentlchen Fahrzeug kühlung zu finden sind. Eine Kühler und Pumpen Logik wurde ebenfalls implementiert.
+
+% \subsubsection{Motorkreislaufmodell}
+% In diesem Modell finden sich die 4 Motoren verschalten wie diese auch in der eigentlichen Fahrzeugkühlung zu finden sind. Auch hier wurde eine Kühler und Pumpen Logik implementiert.
+
+% \subsubsection{Invertermodell}
+% Die Verlustleistung der INverter konte Bislang nicht experimentel bestimmt werden. Dies findet sich ggf. im Abschnitt messungen am Motorprüftstand wieder.
+% Das modell umfasst eine umfassende Analytische Berechnung der Inverter Verlustlsietung ist aber nach wie for auf wichtige Expirementel zu ermittelnde Parameter angewisen.
+
+% \subsubsection{Motormodell}
+% Das Motormodell ist ebenfalls auf Experimentell zu bestimmende Parameter angewiesen. Bislang wurde eine vom Hersteller mitgeliefterte Effizeinzkarte eingebaut, welche anhand von Drehzahl und Drehmoment den Wirkungsgrad und damit die Verlustleistung bestimmt.
+
+% \subsubsection{Kühlermodell}
+% Hier wurde eine Simpler Radiator implementiert welcher ebenfalls nach Datenblatt werte welche noch expirimentell zu VAlideren ist angewiesen ist. Dieser bestimmt in Anbhängigkeit an die Luftgeschwindigkeit die Kühlleistung
+
+% \subsubsection{Lüftermodell}
+% Dieser gibt lediglich die Luftvolumenstrom vor. Je nach Fahrzeuggeschwindigkeit überwiegt die Lüfter leistung oder die Fahrzeugluftgeschwindigkeit. In alter implementierung bremst der Lüfter sogar bei voller Fahrt als Negative Konsequenz den Lüfterstrom.
+
+% \subsection{Visualierung der Simulation und Realitätsabweichung}
+% unklar was hier auftauchen wird. -> Diskutieren wenn es soweit ist
+
+\subsection{Struktur des Simulink-Gesamtmodells}
+
+\subsubsection{Eingangsdaten und Fahrermodell}
+Das Fahrermodell dient als zentrale Datenschnittstelle. Es bereitet transiente Geschwindigkeitsprofile sowie Lastzustände auf, die entweder aus einer Rundenzeitsimulation (Lapsim) oder aus Real-Data-Loggings der VCU stammen. Die modulare Struktur ermöglicht es, zukünftig Regelungslogiken der VCU (z.B. Derating-Strategien) direkt in den Simulationsschleifen zu evaluieren.
+
+\subsubsection{Thermische Lastmodelle (Inverter und Motor)}
+Die Wärmeeinträge in das System werden komponentenweise berechnet:
+\begin{itemize}
+    \item \textbf{Invertermodell:} Da zum aktuellen Zeitpunkt keine Prüfstandsdaten vorliegen, basiert die Verlustleistungsberechnung auf einem analytischen Ansatz, welcher Schalt- und Durchlassverluste der Leistungselektronik mathematisch beschreibt.
+    \item \textbf{Motormodell:} Die thermische Last des Elektroantriebs wird über wirkungsgradbasierte Kennfelder (Efficiency Maps) ermittelt. Hierbei wird die Verlustleistung $\dot{Q}_{loss}$ in Abhängigkeit vom aktuellen Arbeitspunkt (Drehmoment $M$, Drehzahl $n$) berechnet.
+\end{itemize}
+
+\subsubsection{Hydraulische Verschaltung und Kreisläufe}
+In diesen Submodellen wird die physische Anordnung der Komponenten (Inverter- und Motorkreislauf) abgebildet. 
+\begin{itemize}
+    \item Implementierung der pumpenspezifischen Kennlinien zur Bestimmung des Volumenstroms.
+    \item Berücksichtigung der thermischen Trägheiten der Fluidmassen und Gehäusekomponenten (Wärmekapazitäten).
+\end{itemize}
+
+\subsubsection{Wärmeübertrager- und Lüfterinteraktion}
+Das Kühlermodell berechnet den Wärmestrom an die Umgebung basierend auf Hersteller-Datenblättern. Ein kritischer Aspekt der Modellierung ist die Kopplung mit dem Lüftermodell:
+\begin{itemize}
+    \item Berechnung der effektiven Anströmgeschwindigkeit unter Berücksichtigung des Staudrucks bei hohen Fahrgeschwindigkeiten.
+    \item Abbildung des parasitären Effekts, bei dem der Lüfterwiderstand den natürlichen Luftstrom bei hoher Fahrzeuggeschwindigkeit (Vmax) theoretisch begrenzen kann.
+\end{itemize}
+
+\subsection{Visualisierung der Simulation und Validierung}
+% Dieser Abschnitt bleibt vorerst als Platzhalter für den Vergleich 
+% zwischen Simulationsergebnissen und Realmessungen (Prüfstand/Track).

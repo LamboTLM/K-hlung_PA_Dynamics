@@ -1,0 +1,230 @@
+\chapter{Messtechnik und Systemarchitektur}
+\label{ch:messtechnik}
+
+Um eine fundierte Analyse des Kühlsystems durchzuführen und die theoretischen Modelle zu validieren, ist eine präzise und hochfrequente Datenerfassung unerlässlich. Dieses Kapitel beschreibt die messtechnische Infrastruktur des Fahrzeugs sowie die zugrunde liegende Systemarchitektur. Dabei wird zunächst auf die bereits im Fahrzeug integrierte Bestandssensorik eingegangen, bevor die im Rahmen dieser Arbeit implementierten Erweiterungen zur detaillierten thermischen Überwachung erläutert werden. Ziel ist es, eine lückenlose Messkette abzubilden – von der physikalischen Messgröße über die Signalaufbereitung bis hin zur digitalen Protokollierung im Datenlogger.
+
+% -------------------------------------------------------
+\section{Bestandssensorik und Infrastruktur}
+\label{sec:bestandssensorik}
+
+Die am Fahrzeug vorhandene elektronische Infrastruktur bildet das Rückgrat der Datenerfassung und Steuerung, auf dem die thermische Analyse dieser Arbeit aufbaut. Ein tiefgreifendes Verständnis der vorhandenen Signalwege ist essenziell, um die Qualität und Aussagekraft der geloggten Daten korrekt einordnen zu können.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{pics/Systemarchtiektur_RP25e.png}
+    \caption{Schematische Übersicht der fahrzeugseitigen Systemarchitektur: Signalfluss von den Sensoren über VCU und PDU bis zum Datenlogger.}
+    \label{fig:Systemarchtiektur_RP25e}
+\end{figure}
+
+% -------------------------------------------------------
+\subsection{Zentrale Steuereinheiten (VCU \& PDU)}
+\label{subsec:vcu_pdu}
+
+Die Steuerung und Energieversorgung des Fahrzeugs wird durch zwei zentrale Einheiten realisiert, die maßgeblich an der Datenerhebung für das Kühlsystem beteiligt sind.
+
+\paragraph{Vehicle Control Unit (VCU)}
+Die VCU stellt das Herzstück der Fahrzeugsteuerung dar. Auf ihr wird die Steuerungssoftware ausgeführt, welche die gesamte Betriebsstrategie verwaltet. Im Kontext des Kühlsystems übernimmt die VCU zwei Hauptaufgaben:
+\begin{enumerate}
+    \item \textbf{Aktorik-Ansteuerung:} Basierend auf definierten Temperaturschwellwerten regelt die VCU die Drehzahl der Kühlmittelpumpen und die Aktivierung der Lüfter über ein PWM-Signal.
+    \item \textbf{Daten-Gateway:} Sie fungiert als zentraler Knotenpunkt, der Messwerte der Inverter via CAN-Bus sowie analoge Sensordaten empfängt, verarbeitet und an den Datenlogger weiterleitet.
+\end{enumerate}
+
+Eine Limitierung der VCU besteht darin, dass viele physikalische Sensoren aufgrund geringer Signalstärken oder hoher Ausgangsimpedanzen nicht direkt angeschlossen werden können. Diese erfordern eine vorgeschaltete Signalaufbereitung, was die Anzahl der direkt nutzbaren Sensoreingänge effektiv begrenzt.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{pics/VCU_PCB.png}
+    \caption{Übersicht der VCU}
+    \label{fig:vcu_uebersicht}
+\end{figure}
+
+
+\paragraph{Power Distribution Unit (PDU)}
+Die PDU fungiert als intelligente, softwarebasierte Stromverteilung und ersetzt klassische Schmelzsicherungen durch elektronisch überwachte Kanäle. Ihre Relevanz für die Messtechnik liegt in der kontinuierlichen Stromüberwachung der angeschlossenen Aktoren:
+\begin{itemize}
+    \item \textbf{Lastüberwachung:} Die PDU misst die Stromaufnahme der Kühlmittelpumpen und Lüfter. Diese Daten erlauben Rückschlüsse auf den Betriebszustand der Aktorik, beispielsweise bei Blockaden oder Trockenlauf.
+    \item \textbf{Versorgungsstabilität:} Durch das Monitoring der Bordnetzspannung wird sichergestellt, dass die Sensorik stets innerhalb ihrer spezifizierten Versorgungsspannung arbeitet, was die Validität der Messergebnisse absichert.
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{pics/PDU_PCB.png}
+    \caption{Übersicht der PDU}
+    \label{fig:PDU_uebersicht}
+\end{figure}
+
+Zusammen bilden VCU und PDU die Grundlage, um nicht nur Temperaturen, sondern auch die dafür aufgewendete elektrische Energie und den Betriebszustand der Aktoren zu protokollieren.
+
+% -------------------------------------------------------
+\subsection{Datenerfassung und Telemetrie}
+\label{subsec:datenlogger}
+
+Die zentrale Einheit zur persistenten Speicherung aller fahrzeugrelevanten Daten ist der Datenlogger. Er erfasst kontinuierlich die von der VCU sowie den Invertern via CAN-Bus bereitgestellten Messwerte und speichert diese mit hoher Abtastrate auf einem internen Speichermedium.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{pics/Vector Logger GL1010.png}
+    \caption{Verbauter Vector Logger GL1010 mit CAN-Bus-Anbindung und Speichermedium.}
+    \label{fig:datenlogger}
+\end{figure}
+
+Zur Auswertung der umfangreichen Datensätze wird ein eigens entwickeltes MATLAB-Skript eingesetzt. Dieses ermöglicht es, die Rohdaten zu filtern, physikalische Einheiten zuzuordnen und thermische Zusammenhänge -- wie etwa die Trägheit des Kühlmittels im Verhältnis zu Lastspitzen der Motoren -- zu visualisieren. Erst durch diese automatisierte Aufbereitung lassen sich die im Wettbewerb oder auf dem Prüfstand gewonnenen Daten für die Validierung der Kühlungsauslegung nutzen.
+
+% -------------------------------------------------------
+\subsection{Signalaufbereitung mittels Messbrücken}
+\label{subsec:messbruecken}
+
+Da viele physikalische Sensoren -- insbesondere piezoresistive Druckaufnehmer -- auf minimalen Widerstandsänderungen basieren, ist eine direkte Auswertung durch die Analogeingänge der VCU aufgrund des geringen Signal-Rausch-Verhältnisses nicht zielführend. Zur Wandlung dieser Differenzen in ein nutzbares Spannungssignal wird die Wheatstone-Brückenschaltung eingesetzt.
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.55\textwidth]{pics/wheatstone_bridge.png}
+    \caption{Schaltplan einer Wheatstone-Brückenschaltung zur Wandlung von Widerstandsänderungen in eine proportionale Messspannung $\Delta U$.}
+    \label{fig:wheatstone_bridge}
+\end{figure}
+
+Ein wesentlicher Vorteil dieses differenziellen Messprinzips ist die Kompensation von Störeinflüssen:
+\begin{itemize}
+    \item \textbf{Temperaturkompensation:} Da sich Leitungswiderstände bei Erwärmung in allen Brückenzweigen ähnlich ändern, heben sich diese Fehler gegenseitig auf.
+    \item \textbf{Nullpunktstabilität:} Die Brücke erlaubt eine hohe Auflösung um den Arbeitspunkt, was besonders bei der Detektion feiner Druckunterschiede im Kühlkreislauf essenziell ist.
+\end{itemize}
+
+Die Anzahl der verfügbaren Messbrücken ist durch den Bauraum und die Komplexität der Signalverstärkung begrenzt, weshalb eine gezielte Priorisierung der thermisch kritischsten Messstellen erforderlich ist.
+
+% -------------------------------------------------------
+\section{Sensorik der Antriebseinheiten}
+\label{sec:antriebssensorik}
+
+\paragraph{Temperaturüberwachung der Antriebsmotoren}
+\label{sec:motor}
+
+Jeder Antriebsmotor verfügt über einen in die Statorwicklung eingebetteten PT1000-Widerstandsthermometer. Dieser misst die Wicklungstemperatur direkt an der thermisch kritischsten Stelle des Motors. Das physikalische Messprinzip wird in Abschnitt~\ref{subsec:pt1000} detailliert beschrieben, da es identisch mit den zusätzlich verbauten Kühlmitteltemperatursensoren ist.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{pics/Motor_Data_sheet.PNG}
+    \caption{Einbaulage des PT1000-Sensors in der Statorwicklung eines Antriebsmotors.}
+    \label{fig:motor_pt1000}
+\end{figure}
+
+\paragraph{Integrierte Sensorik der Inverter}
+
+Jeder Inverter verfügt über einen im IGBT-Modul (Insulated Gate Bipolar Transistor) integrierten Temperatursensor. Dieser erlaubt die direkte Abfrage der Sperrschichttemperatur der Leistungshalbleiter, welche als kritische Betriebsgröße kontinuierlich mitgeloggt wird. Da der Inverterhersteller die Veröffentlichung von Produktabbildungen nicht gestattet, zeigt Abbildung~\ref{fig:inverter_igbt} exemplarisch einen Inverter eines Wettbewerbers, der ein vergleichbares Kühlungskonzept realisiert.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{pics/AMK_Inverter.PNG}
+    \caption{Exemplarische Darstellung eines IGBT-Invertermoduls mit integriertem Temperatursensor (Fremdprodukt, da Herstellerfreigabe nicht vorliegt). Das Kühlungskonzept ist vergleichbar mit dem eingesetzten System.}
+    \label{fig:inverter_igbt}
+\end{figure}
+
+\paragraph{Kühlmittelpumpen und PWM-Ansteuerung}
+
+Im Fahrzeug sind zwei Kühlmittelpumpen verbaut, die die beiden Kühlkreisläufe -- Motorkreislauf und Inverterkreislauf -- unabhängig voneinander versorgen. Die Pumpen ermöglichen keine direkte Messung des Volumenstroms, und eine separate Stromerfassung je Pumpe ist im aktuellen Systemaufbau nicht vorgesehen. Dennoch wird das PWM-Ansteuersignal, das die VCU an die Pumpen sendet, mitgeloggt. Dies erlaubt eine qualitative Nachvollziehbarkeit des Pumpenbetriebszustands in der Datenanalyse. Die fehlende Volumenstromerfassung stellt jedoch eine wesentliche Messlücke dar, die im Rahmen dieser Arbeit durch einen zusätzlichen Durchflusssensor geschlossen wird (siehe Abschnitt~\ref{subsec:volumenstrom}).
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{pics/Pumpe_Vitesco.png}
+    % \caption{Einbausituation der beiden Kühlmittelpumpen im Fahrzeug mit Kennzeichnung der jeweiligen Kreislaufzugehörigkeit.}
+    \caption{Verbaute Pumpe der Firma Vitesco mit 24V und (60W) Leistung.}
+    \label{fig:pumpen_einbau}
+\end{figure}
+
+% TODO: Subsektionen füllen oder nach Verfügbarkeit der Daten ergänzen
+% \subsection{Kühlmittelpumpen und PWM-Feedback}
+% \subsection{Lüftersteuerung und Betriebszustände}
+
+% -------------------------------------------------------
+\section{Projektspezifische Erweiterung der Messtechnik}
+\label{sec:erweiterung}
+
+Die in Abschnitt~\ref{sec:bestandssensorik} beschriebene Bestandssensorik liefert zwar eine solide Ausgangsbasis, lässt jedoch für eine vollständige thermische Bilanzierung des Kühlsystems wesentliche Messgrößen offen. Im Rahmen dieser Arbeit wird die Messtechnik daher gezielt um drei Sensortypen erweitert: einen Volumenstromsensor, zusätzliche Temperaturmessstellen sowie Differenzdrucksensoren.
+
+\subsection{Volumenstrom-Sensor}
+\label{subsec:volumenstrom}
+
+Zur präzisen Bestimmung des Volumenstroms -- und damit zur Berechnung des Massenstroms, der für die thermische Leistungsbilanz des Kühlkreislaufs essenziell ist -- wird ein Turbinen-Durchflusssensor eingesetzt. Abbildung~\ref{fig:durchfluss_sensor_foto} zeigt den verbauten Sensor, Abbildung~\ref{fig:durchfluss_sensor_prinzip} erläutert das zugrunde liegende Wirkprinzip.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{pics/Volumenstrom_Sensor_neu.jpg}
+    \caption{Verbauter Turbinen-Durchflusssensor im Kühlkreislauf des Fahrzeugs.}
+    \label{fig:durchfluss_sensor_foto}
+\end{figure}
+
+Das Funktionsprinzip basiert auf der Wandlung der Strömungsenergie in eine Rotationsbewegung. Die einströmende Kühlflüssigkeit wird durch Leitschaufeln stabilisiert und auf den Rotor geleitet, dessen Winkelgeschwindigkeit über einen weiten Messbereich linear proportional zur mittleren Strömungsgeschwindigkeit ist. Ein im Rotor integrierter Permanentmagnet erzeugt bei jeder Umdrehung einen Impuls im außenliegenden Hall-Sensor, der als Frequenzsignal an den Datenlogger übertragen wird. Über die bekannte K-Faktor-Konstante des Sensors lässt sich in der Nachauswertung der Volumenstrom in Litern pro Minute berechnen. Da das Messprinzip rein magnetisch und damit berührungslos arbeitet, ist eine hermetische Trennung zwischen Kühlmedium und Sensorelektronik gewährleistet.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{pics/Turbinen_Durchfluss_Sensor.png}
+    \caption{Schnittdarstellung des Turbinen-Durchflusssensors: Die einströmende Flüssigkeit versetzt den Rotor in Rotation, deren Frequenz vom Hall-Sensor erfasst und proportional zum Volumenstrom ausgewertet wird.}
+    \label{fig:durchfluss_sensor_prinzip}
+\end{figure}
+
+\subsection{Temperatursensorik (PT1000)}
+\label{subsec:pt1000}
+
+Zur Erfassung der Kühlmitteltemperatur an kritischen Stellen des Kreislaufs -- insbesondere im Vor- und Rücklauf der Radiatoren -- werden zusätzliche PT1000-Widerstandsthermometer eingesetzt.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{pics/PT_100_Skizze.png}
+    \caption{Schematischer Aufbau eines PT100-Widerstandsthermometers mit Platinwicklung und Keramikschutzmantel.}
+    \label{fig:pt1000_aufbau}
+\end{figure}
+
+Das Messprinzip basiert auf dem positiven Temperaturkoeffizienten (PTC) von Platin: Mit steigender Temperatur erhöht sich der elektrische Widerstand der Platinwicklung nahezu linear. Ein PT1000 besitzt bei $0\,^\circ\text{C}$ einen Nennwiderstand von $1000\,\Omega$. Die Widerstandsänderung wird über eine Wheatstone-Messbrücke in der VCU ausgewertet und in einen kalibrierten Temperaturwert umgerechnet. Platin zeichnet sich dabei durch eine exzellente Langzeitstabilität aus, was wiederholte Messungen unter Wettbewerbsbedingungen zuverlässig reproduzierbar macht.
+
+\subsection{Differenzdrucksensor (Piezoresistiv)}
+\label{subsec:drucksensor}
+
+Zur Bestimmung von Druckverlusten innerhalb des Kühlkreislaufs -- beispielsweise über dem Radiator -- werden piezoresistive Differenzdrucksensoren eingesetzt. Im Gegensatz zu Absolutdrucksensoren verfügen diese über zwei Druckanschlüsse ($P_1$ und $P_2$), sodass direkt die Druckdifferenz $\Delta p = P_1 - P_2$ gemessen wird.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{pics/Piezo_Kristall_MTP.PNG}
+    \caption{Interner Aufbau eines piezoresistiven Differenzdrucksensors: Die Druckdifferenz verformt eine Siliziummembran, deren Widerstandsänderung über eine Wheatstone-Brücke ausgewertet wird.}
+    \label{fig:drucksensor_aufbau}
+\end{figure}
+
+Das Herzstück des Sensors bildet eine dünne Siliziummembran. Eine anliegende Druckdifferenz führt zu deren mechanischer Verformung, wodurch sich der elektrische Widerstand der aufgebrachten piezoresistiven Elemente ändert. Diese sind in einer Wheatstone-Messbrücke verschaltet, die die Dehnung in eine proportionale Ausgangsspannung umwandelt. Zum Schutz der empfindlichen Halbleiterstruktur vor dem Kühlmedium ist das Sensorelement mit einem chemisch inerten Silikon-Gel vergossen, das den hydraulischen Druck verlustfrei überträgt und die Elektronik gleichzeitig isoliert.
+
+% -------------------------------------------------------
+\section{Positionierung und Validierung der Sensorik}
+\label{sec:validierung}
+
+% TODO: Abschnitt nach Abschluss der experimentellen Arbeiten ausformulieren.
+% Geplante Inhalte:
+% - Initialer Versuchsaufbau und Funktionsprüfung im Labor
+%   (Motor/Inverter mit temperiertem Wasser befüllen,
+%    Sensor-Validierung, Zeitkonstanten der Sensorik)
+% - Radiator/Lüfter Volumenstrom-Validierung am Fahrzeug mittels Pitot-Rohr
+% - Experimentelle Datenerhebung am Motorenprüfstand
+% - Systemintegration im Gesamtfahrzeug
+
+% -------------------------------------------------------
+\section{Charakterisierung der Systemkomponenten}
+\label{sec:charakterisierung}
+
+% TODO: Abschnitt nach Abschluss der Messungen ausformulieren.
+% Geplante Messprogramme:
+%
+% Motoren:
+%   - Thermische Masse (Gewichtsmessung + Datenblattwerte)
+%   - Wärmeübergangskoeffizient (Abkühlversuch mit temperiertem Wasser)
+%
+% Inverter:
+%   - Thermische Masse (Gewichtsmessung + Datenblattwerte)
+%   - Wärmeübergangskoeffizient
+%
+% Pumpen:
+%   - Volumenstrom-Kennlinie in Abhängigkeit des PWM-Signals (Testaufbau)
+%
+% Radiatoren:
+%   - Wärmeübertragungskoeffizient (temperiertes Wasser, Vor-/Rücklauftemperatur,
+%     Volumenstrom; ggf. Windkanal OTH)
+%
+% Lüfter:
+%   - Luftvolumenstrom im Stand (Lüfter aktiv)
+%   - Luftvolumenstrom unter der Fahrt
+%   - Wärmeübergangskoeffizient unter Fahrtwind

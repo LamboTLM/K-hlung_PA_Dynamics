@@ -1,0 +1,129 @@
+\chapter{Stand der Technik}
+Stand der Technik Intern
+
+\subsection{Bremssystem}
+\label{subsec:bremsen_status}
+
+Die Entwicklung der Bremsanlage und deren thermisches Management hat sich bei den Fahrzeugen von Dynamics e.V. zunehmend als limitierender Faktor für den Dauerbetrieb herausgestellt.
+
+\paragraph{Saison 2023 (RP23e):} 
+In dieser Saison kam erstmals ein vollständig eigenentwickeltes Bremssystem zum Einsatz. Da der RP23e das erste Fahrzeugkonzept mit 10-Zoll-Felgen und Radnabenantrieb war, fehlten historische Erfahrungswerte zur Auslegung völlig. Erschwerend kam hinzu, dass die eigens entwickelten CFK-Felgen aerodynamisch geschlossen konzipiert waren, was eine konvektive Kühlung von außen prinzipbedingt verhinderte. Zwar prognostizierten frühe Laptime-Simulationen massive thermische Implikationen, mangels realer Testdaten blieben diese jedoch unvalidiert. Ein kontinuierlicher Fahrbetrieb war durch anderweitige Fahrzeugprobleme nicht möglich, weshalb genaue strukturelle und thermische Lastkollektive nicht messtechnisch erfasst werden konnten. Infolgedessen erwies sich die Bremse als thermisch und strukturell ungeeignet ausgelegt. Eine frühzeitig begonnene Entwicklung zur aktiven Bremskühlung kam aufgrund theoretischer Defizite und fehlender Testmöglichkeiten nie über die Konzeptphase hinaus.
+
+\subsubsection{Saison 2023: Passive Luftkühlung}
+\textbf{Konzept:} Kühlung allein durch Konvektion und Felgendesign. \\
+\textbf{Status:} Extreme Einschränkung aufgrund der Bremsscheiben  \\
+\textbf{Probleme:} Viel Zeit an Wartung Verloren. Verheerendere Probleme sind aufgrund des Geringen Fahrbetriebs unentdeckt geblieben.
+
+\paragraph{Saison 2024 (RP24e):} 
+Aufbauend auf den Defiziten des Vorjahres lag der Fokus im RP24e primär auf der thermischen Entlastung der Bremsanlage. Ein zentraler Ansatz war die Steigerung der Energierückgewinnung (Rekuperation), was jedoch lediglich zu einer Verschiebung der thermischen Last auf das HV-System führte. Infolgedessen limitierte die Akkutemperatur einen dauerhaften Einsatz dieser Strategie. Baulich wurde eine Luftführung implementiert, die Kühlluft direkt vor dem Seitenkasten entnahm und in das Felgeninnere leitete, wodurch Aero-Performance zugunsten der Zuverlässigkeit geopfert werden musste. Trotz verbesserter struktureller Anbindung am Radträger blieb die thermische Performance unzureichend. Die Einführung einer Sensorik erlaubte zwar einen kontrollierten Abbruch des Testbetriebs vor kritischen Bauteilversagen, verhinderte jedoch nicht die massiven Einbußen im Wettbewerb: Zwei von drei Endurance-Rennen (FS Czech, FSG) konnten aufgrund von Überhitzung nicht beendet werden. Das finale Event wurde lediglich durch massives \textit{Lift-and-Coast} und erhebliche Performance-Verluste abgeschlossen.
+
+\subsubsection{Saison 2024: Aktive Luftführung (Brake Ducts)}
+\textbf{Konzept:} Gezielte Luftleitung mittels 3D-gedruckter Kanäle mit Thermischer Sensorüberwachung. \\
+\textbf{Status:} Optimierung des Massenstroms durch CFD-Simulationen. \\
+\textbf{Probleme:} Mechanische Instabilität der Luftführung bei marginaler Steigerung der thermischen Performance.
+
+\paragraph{Saison 2025 (RP25e):} 
+Die Saison 2025 war durch tiefgreifende konzeptionelle Umstellungen bei Dynamics e.V. geprägt. Da die Effektivität der passiv unterstützten Bremskühlung weiterhin kritisch hinterfragt wurde, lag der Fokus primär auf der funktionalen Entlastung des mechanischen Reibsystems. Durch signifikante Anpassungen am HV-Strang wurde die Rekuperationsfähigkeit für den Dauerbetrieb optimiert, was die thermische Grundlast der Bremse senkte. Die physische Luftführung des RP24e wurde zwar konstruktiv übernommen, im Fahrbetrieb jedoch nicht eingesetzt, was formal einen Rückschritt zum Stand des RP23e darstellt. Die integrierte Sensorik blieb als essentielles Werkzeug für die Post-Analyse erhalten und lieferte die Datenbasis für notwendige zukünftige Anpassungen. Zur Behebung der bestehenden strukturellen Defizite erfolgte zudem der Wechsel von einer Eigenentwicklung auf bewährte Kaufteil-Bremssättel. Dies verschlechterte zwar das Packaging innerhalb der Felge, führte jedoch zu einer geringfügigen Verbesserung der natürlichen Luftanströmung und einer deutlich höheren mechanischen Zuverlässigkeit.
+
+\subsubsection{Saison 2025: Passive Luftkühlung}
+\textbf{Konzept:} Kühlung ausschließlich durch natürliche Konvektion bei gleichzeitiger thermischer Sensorüberwachung. \\
+\textbf{Status:} Fokus auf thermische Entlastung der mechanischen Komponenten durch optimierte Rekuperationsstrategien im HV-System. \\
+\textbf{Probleme:} Systemische Schwächen im Dauerbetrieb (Endurance) aufgrund fehlender aktiver Entwärmung weiterhin absehbar.
+
+\paragraph{Ausblick 2026 (RP26e):} 
+Abschließend erfolgt ein Ausblick auf fahrzeugseitige Entwicklungen in angrenzenden Baugruppen, die maßgeblichen Einfluss auf das thermische Management der Bremsanlage im RP26e haben werden. Der Fokus liegt hierbei auf einer grundlegenden Neukonzeption der Rekuperationssteuerung. Während bisherige Systeme den Bremsdruck als Regelgröße nutzten, was zwangsläufig zu einer gleichzeitigen mechanischen und thermischen Belastung der Reibbremse führte, setzt das neue Konzept auf eine vollständige Entkopplung. Durch die Implementierung einer Loadcell in Kombination mit einer Gasdruckfeder kann die Rekuperationsleistung bis zu einem definierten Schwellenwert unabhängig von der mechanischen Bremse angesteuert werden. Dies ermöglicht eine deutlich feinere Dosierung und Kontrolle durch den Fahrer. Ziel dieser Systemänderung ist es, den effektiven Bremsdruck im regulären Fahrbetrieb nahezu auf Null zu reduzieren, wodurch die thermische Last auf die mechanischen Komponenten drastisch minimiert wird. Lediglich in Extremsituationen oder bei gesetzlich vorgeschriebenen Funktionstests (Brake Test) wird das mechanische System weiterhin vollumfänglich beansprucht.
+
+\subsection{Akkukühlung}
+\label{subsec:Accu_cooling_status}
+
+Die Implementaton einer Akkukühlung wurde anfangs als Nachrängig dargestllt für die Gesamt Performance des Fahrzeugs, jedoch hat sich auf grund des steigenden Enegrie bedrafs durch die Dynamicsheren Fahrten sowie vor allem die Erhöhte Lasten durch den immer größer werden den anforderungen an die Recuperation
+
+
+\paragraph{Saison 2023 (RP23e):} 
+In der Saison 2023 herrschte aufgrund fehlender historischer Daten Uneinigkeit über die Notwendigkeit einer aktiven Akkumulatorkühlung. Ein früher Prototyp des Kühlsystems wurde zwar am RP23e montiert, konnte jedoch im Fahrbetrieb nicht hinreichend validiert werden, um belastbare Aussagen über die thermische Performance zu treffen. In einer kurzfristigen Entscheidung der Teamleitung wurde das System schließlich demontiert, um Komplexität und Gewicht zu reduzieren. Im weiteren Saisonverlauf bestätigte sich diese Entscheidung vorerst, da der Akkumulator auch ohne aktive Kühlung keine kritischen Temperaturgrenzwerte erreichte und den Fahrbetrieb nicht einschränkte.
+
+\subsubsection{Saison 2023: Passive Gehäusedurchströmung}
+\textbf{Konzept:} Passiv durchströmter Akkumulator mittels externer Luftführung (Schnorchel-Prinzip). \\
+\textbf{Status:} System wurde aufgrund mangelnder Datenrelevanz und Validierungsmöglichkeiten nicht im finalen Rennbetrieb eingesetzt. \\
+\textbf{Probleme:} Die mechanische und strukturelle Integrität der Luftzuführung wurde durch die Gesamtteamleitung (GTL) als kritisches Risiko eingestuft und Entfernt.
+
+
+\paragraph{Saison 2024 (RP24e):} 
+
+\subsubsection{Saison 2024: }
+\textbf{Konzept:}  \\
+\textbf{Status:}  \\
+\textbf{Probleme:} 
+
+\paragraph{Saison 2025 (RP25e):} 
+
+\subsubsection{Saison 2025: }
+\textbf{Konzept:}  \\
+\textbf{Status:}  \\
+\textbf{Probleme:} 
+
+
+
+\subsection{Inverterkühlung}
+\label{subsec:Inverter_cooling_status}
+
+% Die Entwicklung der Bremsanlage und deren thermisches Management hat sich bei den Fahrzeugen von Dynamics e.V. zunehmend als limitierender Faktor für den Dauerbetrieb herausgestellt.
+
+\paragraph{Saison 2023 (RP23e):} 
+
+\subsubsection{Saison 2023: }
+\textbf{Konzept:}  \\
+\textbf{Status:}  \\
+\textbf{Probleme:} 
+
+
+
+\paragraph{Saison 2024 (RP24e):} 
+
+\subsubsection{Saison 2024: }
+\textbf{Konzept:}  \\
+\textbf{Status:}  \\
+\textbf{Probleme:} 
+
+
+
+\paragraph{Saison 2025 (RP25e):} 
+
+\subsubsection{Saison 2025: }
+\textbf{Konzept:}  \\
+\textbf{Status:}  \\
+\textbf{Probleme:} 
+
+
+
+
+
+\subsection{Motorkühlung}
+\label{subsec:Engine_cooling_status}
+
+% Die Entwicklung der Bremsanlage und deren thermisches Management hat sich bei den Fahrzeugen von Dynamics e.V. zunehmend als limitierender Faktor für den Dauerbetrieb herausgestellt.
+
+\paragraph{Saison 2023 (RP23e):} 
+
+\subsubsection{Saison 2023: }
+\textbf{Konzept:}  \\
+\textbf{Status:}  \\
+\textbf{Probleme:} 
+
+
+
+\paragraph{Saison 2024 (RP24e):} 
+
+\subsubsection{Saison 2024: }
+\textbf{Konzept:}  \\
+\textbf{Status:}  \\
+\textbf{Probleme:} 
+
+
+
+\paragraph{Saison 2025 (RP25e):} 
+
+\subsubsection{Saison 2025: }
+\textbf{Konzept:}  \\
+\textbf{Status:}  \\
+\textbf{Probleme:} 

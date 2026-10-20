@@ -1,0 +1,88 @@
+    \geometry{a4paper, top=27mm, left=20mm, right=20mm, bottom=35mm, headsep=10mm, footskip=12mm}
+\pagestyle{fancy}
+\frenchspacing
+\hypersetup{hidelinks}
+
+%%Kapitelüberschrift---------------------------------------------------------
+
+\titleformat{\chapter}[block]{}{
+  \eqmakebox[chap]{\Large\MakeUppercase{\sffamily\lsstyle\chaptername} %
+    \raisebox{-0.6\height}{\fontsize{50pt}{50pt}\selectfont\thechapter}\quad}}
+{0pt}{\huge\bfseries\raisebox{1ex}{\parbox[t]{\dimexpr\textwidth-\eqboxwidth{chap}\relax}{\titlerule[2pt]\vspace{1.25ex}#1}}}
+
+\titleformat{\section}[block]
+  {\large}
+  {}
+  {0pt}
+  {\hrule\vspace*{0.25ex}\parbox[b]{\dimexpr\textwidth\relax}{\textcolor{black}{\thesection}\quad\raggedright\bfseries\MakeUppercase{#1}}}
+  [\hrule]
+
+\titleformat{name=\section,numberless}[block]
+  {\large}
+  {}
+  {0pt}
+  {\hrule\vspace*{1ex}\raggedright\bfseries\MakeUppercase{#1}\hrule\vspace*{1ex}}
+
+    
+\titleformat{\subsection}[display]{\normalsize}
+  {}
+  {0pt}
+  {\hrule\vspace*{0.25ex}\parbox[b]{\dimexpr\textwidth\relax}{\textcolor{black}{\thesubsection}\quad\raggedright\bfseries\MakeUppercase{#1}}}
+  [\hrule]
+
+\titleformat{\subsubsection}[display]{\small}
+  {}
+  {0pt}
+  {\hrule\vspace*{0.25ex}\parbox[b]{\dimexpr\textwidth\relax}{\textcolor{black}{\thesubsubsection}\quad\raggedright\bfseries\MakeUppercase{#1}}}
+  [\hrule]
+
+\titlespacing*{\chapter}{0pt}{0pt}{4em}
+\titlespacing*{\section}{0em}{2em}{2em}
+\titlespacing*{\subsection}{0pt}{1em}{1em}
+
+
+% Kopfzeile ----------------------------------------------------------------
+\lhead{}
+\chead{}
+\rhead{\leftmark}
+\setlength{\headheight}{24pt}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Fußzeile -----------------------------------------------------------------
+\lfoot{}
+\cfoot{}
+\rfoot{\thepage}
+\renewcommand{\footrulewidth}{0.4pt}
+\usepackage[bottom]{footmisc}
+
+
+\fancypagestyle{plain}{
+  % Kopfzeile ----------------------------------------------------------------
+  \lhead{\begin{tikzpicture}[remember picture,overlay]
+      \node[anchor=west] at ([xshift=1cm,yshift=-1cm] current  page.north west)   {\includegraphics[height=1.5cm]{pics/oth-logo.png}};
+    \end{tikzpicture} }
+  \chead{}
+  \rhead{	\begin{tikzpicture}[remember picture,overlay]
+      \fill[customgray]
+      ([xshift=-8cm]current page.north east) --
+      ([xshift=-0cm,yshift=-0cm]current page.north east) --
+      ([yshift=-2cm]current page.north east) --
+      ([xshift=-8.5cm,yshift=-2cm]current page.north east) --
+      cycle;
+      \node[anchor=east] at ([xshift=-1cm,yshift=-1cm]current page.north east)  {\includesvg[height=1.5cm]{pics/logo_vector_formula_student.svg}};
+    \end{tikzpicture}}
+  \setlength{\headheight}{24pt}
+  \renewcommand{\headrulewidth}{0pt}
+
+  % Fußzeile -----------------------------------------------------------------
+  \lfoot{}
+  \cfoot{}
+  \rfoot{\thepage}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\clubpenalty = 10000
+\widowpenalty = 10000 
+\displaywidowpenalty = 10000
+
+

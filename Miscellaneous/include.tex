@@ -1,0 +1,62 @@
+% Grundlegende Kodierung und Sprache
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{csquotes} % WICHTIG: Behebt die biblatex-Warnung
+\usepackage{dirtytalk}
+\usepackage{textcomp}
+
+% Bibliographie
+\usepackage[style=iso-authoryear, backend=biber]{biblatex}
+
+% Fonts & Textsatz
+\usepackage{lmodern}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{geometry}
+\usepackage{microtype}
+\usepackage{lipsum}
+
+% Tabellen & Layout-Hilfen
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{colortbl}
+\usepackage{float}
+\usepackage{eqparbox}
+
+% Grafik & Zeichnen
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usepackage{pgf-pie}
+\usepackage{tcolorbox}
+
+% Mathe & Einheiten
+\usepackage{amsmath}
+\usepackage{siunitx}
+\sisetup{per-mode=fraction}
+
+% Programmierung & Befehlserweiterungen
+\usepackage{listings}
+\usepackage{xargs}
+
+% Verzeichnisse (außer Bibliographie)
+\usepackage[printonlyused]{acronym}
+\usepackage{nomencl}
+\makenomenclature % Aktiviert die Nomenclature direkt hier
+
+% Farben
+\usepackage[]{xcolor}
+
+% --- KRITISCHER BEREICH: REIHENFOLGE ---
+\usepackage{fancyhdr}
+
+\let\headrule\undefined
+\let\footrule\undefined
+
+\usepackage[pagestyles, clearempty, explicit]{titlesec}
+
+\usepackage{hyperref}
+\usepackage{cleveref}

@@ -1,0 +1,30 @@
+\section{CFD \& thermische Simulation}
+
+\subsection{Modellierung der luftgekühlten Komponenten}
+In diesem Abschnitt werden die Systeme untersucht, die direkt durch den Fahrtwind oder Lüfter beaufschlagt werden.
+\begin{itemize}
+    \item \textbf{Akku-Luftkühlung:} Analyse der Durchströmung des Battery-Packs. Fokus auf der gleichmäßigen Umströmung der Zellen, um Temperaturgradienten innerhalb der Module zu minimieren.
+    \item \textbf{Inverter-Kühlung (Luftseite):} Untersuchung der Kühlkörpergeometrie und der Positionierung im Luftstrom zur Vermeidung von Rezirkulationszonen.
+    \item \textbf{Druckverlust-Charakteristik:} Ermittlung des Strömungswiderstands der Gehäuse und Kühlrippen für das übergeordnete Systemmodell.
+\end{itemize}
+
+\subsection{Simulation der wassergekühlten Wärmetauscher}
+Die wasserseitige Simulation konzentriert sich auf die effiziente Wärmeabfuhr aus den Hochleistungskomponenten.
+\begin{itemize}
+    \item \textbf{Radiator-Durchströmung:} Detail-CFD des Kühlers zur Bestimmung der lokalen Wärmeübergangskoeffizienten zwischen Wasserkanälen und Lamellen.
+    \item \textbf{Kühlmantel-Optimierung:} Simulation der Wasserführung in Motor und Inverter zur Maximierung der turbulenten Durchmischung (Erhöhung der Nusselt-Zahl).
+    \item \textbf{Kavitationsprüfung:} Untersuchung kritischer Engstellen im Kreislauf auf potenzielle Kavitationserscheinungen bei hohen Pumpendrehzahlen.
+\end{itemize}
+
+\subsection{Gekoppelte CHT-Simulation (Conjugate Heat Transfer)}
+Die Kopplung von Fluid- und Festkörpertemperaturfeldern ist entscheidend für die Bauteilsicherheit.
+\begin{itemize}
+    \item \textbf{Thermische Schnittstellen:} Modellierung des Wärmeübergangs von der Leistungselektronik (IGBTs/MOSFETs) über die Wärmeleitpaste zum Kühlmedium.
+    \item \textbf{Hotspot-Analyse:} Identifikation von Bereichen mit unzureichender Kühlleistung unter transienten Spitzenlasten (z.B. Beschleunigungsphasen).
+\end{itemize}
+
+\subsection{Validierung gegenüber Messdaten}
+\begin{itemize}
+    \item \textbf{Sensorabgleich:} Vergleich der simulierten Druckverluste ($\Delta p$) und Temperaturspreizungen ($\Delta T$) mit Daten aus dem Fahrzeug-Logging.
+    \item \textbf{Netzstudie:} Nachweis der Ergebnisstabilität durch Variation der Elementgröße in den Grenzschichten (y-plus-Betrachtung).
+\end{itemize}
