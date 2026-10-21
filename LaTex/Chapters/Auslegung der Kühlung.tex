@@ -1,0 +1,89 @@
+\section{Hydraulische Charakterisierung der Komponenten}
+\label{sec:hydraulik}
+
+Um den Druckverlust des Kühlkreislaufs und den benötigten Druckaufbau der Pumpe
+bestimmen zu können, müssen zunächst die Druckverluste der einzelnen Bauteile
+ermittelt werden.
+
+\subsection{Messaufbau}
+\label{subsec:hydraulik_messaufbau}
+
+Die Messungen erfolgten am Fahrzeug RP25e/d. Dieses besitzt zwei getrennte
+Kühlkreisläufe: einen für den Inverter und einen für die vier in Reihe
+geschalteten Motoren.
+
+% FIGURE-VORSCHLAG 19: Fließbild der beiden Kühlkreisläufe des RP25e/d
+% (Inverter-Kreis; Motor-Kreis mit vier Motoren in Reihe, Radiatoren, Pumpen).
+
+\subsection{Vorgehen}
+\label{subsec:hydraulik_vorgehen}
+
+Zunächst wurden beide Kreisläufe im Ausgangszustand vermessen. Dazu wurde
+der Volumenstrom ermittelt, indem die innerhalb einer Minute geförderte
+Wassermenge bestimmt wurde. Anschließend wurde jeweils eine Komponente aus dem
+Kreis entfernt und die Messung wiederholt. Aus den unterschiedlichen
+Durchflüssen lässt sich der hydraulische Widerstand der entfernten Komponente
+bestimmen.
+
+Betrachtet wurden folgende Komponenten: Schlauch mit \SI{10}{mm}
+\TODO{Innen- oder Außendurchmesser} je \SI{1}{m} Länge, Motor, Radiator und
+Inverter.
+
+\subsection{Berechnung der Widerstandswerte}
+\label{subsec:hydraulik_berechnung}
+
+Für den turbulent durchströmten Kreis wird der Druckverlust als quadratisch
+vom Volumenstrom abhängig angenommen:
+\begin{equation}
+    \Delta p = R \, \dot{V}^{2}.
+    \label{eq:druckverlust}
+\end{equation}
+Bei Reihenschaltung addieren sich die Widerstände der Komponenten zu
+$R_\mathrm{ges} = \sum_i R_i$. Die Pumpe arbeitet in dem Betriebspunkt, in dem
+ihr Druckaufbau $\Delta p_\mathrm{P}(\dot{V})$ dem Druckverlust des Kreises
+entspricht. Für den Ausgangszustand (Index 1) und den Zustand ohne Komponente
+$K$ (Index 2) gilt damit
+\begin{align}
+    \Delta p_\mathrm{P}(\dot{V}_1) &= R_\mathrm{ges}\,\dot{V}_1^{2}, \\
+    \Delta p_\mathrm{P}(\dot{V}_2) &= \left(R_\mathrm{ges} - R_K\right)\dot{V}_2^{2}.
+\end{align}
+Daraus folgt für den Widerstand der Komponente
+\begin{equation}
+    R_K = \frac{\Delta p_\mathrm{P}(\dot{V}_1)}{\dot{V}_1^{2}}
+        - \frac{\Delta p_\mathrm{P}(\dot{V}_2)}{\dot{V}_2^{2}}.
+    \label{eq:widerstand_komponente}
+\end{equation}
+Der Druckaufbau der Pumpe wird dabei aus der bekannten Pumpenkennlinie bei
+den gemessenen Volumenströmen abgelesen.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Ermittelte hydraulische Widerstände der Komponenten}
+    \label{tab:hydraulik_widerstaende}
+    \begin{tabular}{l S[table-format=2.2] l}
+        \toprule
+        Komponente & {$R$ in \si{...}} & Bemerkung \\
+        \midrule
+        Schlauch (\SI{10}{mm}, je \SI{1}{m}) & {\TODO{}} & \\
+        Motor & {\TODO{}} & \\
+        Radiator & {\TODO{}} & \\
+        Inverter & {\TODO{}} & \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% FIGURE-VORSCHLAG 20: Pumpenkennlinie mit den gemessenen Betriebspunkten
+% (Ausgangszustand und je ein Punkt pro entfernter Komponente) und den
+% zugehörigen Anlagenkennlinien.
+
+\subsection{Modellierung und Layoutvergleich}
+\label{subsec:hydraulik_modell}
+
+Anschließend wurde der Kühlkreislauf in MATLAB nachgebildet. Die berechneten
+Werte wurden mit einem Korrekturfaktor an die Messwerte angeglichen. Der
+Korrekturfaktor beträgt \TODO{} und ergibt sich aus \TODO{Definition}.
+Danach wurden verschiedene Layouts in MATLAB aufgebaut, deren Durchflüsse
+und mögliche Wärmeabfuhr berechnet und verglichen.
+
+% FIGURE-VORSCHLAG 21: Vergleich Messung und Modell (Volumenstrom je Konfiguration).
+% FIGURE-VORSCHLAG 22: Balkendiagramm Durchfluss/Wärmeabfuhr je Layout.
