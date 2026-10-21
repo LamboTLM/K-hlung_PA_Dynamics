@@ -1,3 +1,63 @@
 \chapter{Konstruktionsbegründung}
 
-\lipsum[1-3]
+\section{Entlüftungskonzept}
+\label{sec:entlueftung}
+
+Für ein schnelles und zuverlässiges Entlüften des Kühlkreislaufs wurde ein
+eigenes Entlüftungskonzept entwickelt. Es besteht aus drei Maßnahmen:
+den Entlüftungsadaptern, der geänderten Anordnung von Pumpe und Radiator
+sowie einer Entlüftungsvorrichtung.
+
+\subsection{Entlüftungsadapter}
+\label{subsec:entlueftungsadapter}
+
+Je Kühlkreis kommt ein Krontec-Adapter~\cite{TODO_Datenblatt_Krontec} zum
+Einsatz. Er ermöglicht das Öffnen und Schließen des Kreises, ohne dass Wasser
+austritt oder Luft eintritt. Die Adapter sind an den höchsten Stellen der
+Kühlkreisläufe positioniert, nämlich direkt nach den Radiatoren. Dort sammelt
+sich die eingeschlossene Luft und kann beim Entlüften direkt nach außen
+gespült werden.
+
+% FIGURE-VORSCHLAG 16: Foto des Krontec-Adapters im eingebauten Zustand
+% oder CAD-Ausschnitt mit Markierung der Einbauposition am höchsten Punkt.
+
+\subsection{Anordnung von Pumpe und Radiator}
+\label{subsec:anordnung_pumpe_radiator}
+
+Zusätzlich wurden die Positionen von Pumpe und Radiator im Kreis getauscht.
+Dadurch liegt der Entlüftungsanschluss vor der Pumpe und nach dem Radiator.
+Es muss nur ein kurzes Schlauchstück vorgefüllt werden, bis die Pumpe
+genügend Wasser fördert, um die restliche Luft aus dem System zu pumpen.
+
+% FIGURE-VORSCHLAG 17: Schematischer Kühlkreislauf (Fließbild) vorher/nachher
+% mit eingezeichneter Reihenfolge von Radiator, Pumpe und Entlüftungsanschluss.
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=\textwidth]{bilder/kuehlkreis_vorher_nachher}
+    \caption{Anordnung von Pumpe, Radiator und Entlüftungsanschluss vor und
+             nach der Umstellung}
+    \label{fig:kuehlkreis_layout}
+\end{figure}
+
+\subsection{Vorbefüllen}
+\label{subsec:vorbefuellen}
+
+Zum Vorbefüllen kann entweder ein Trichter angeschlossen werden, oder die
+Dosieröffnung des Wasserbehälters wird aufgeschnitten, sodass das System
+vorläufig direkt daraus befüllt werden kann.
+
+\subsection{Entlüftungsvorrichtung}
+\label{subsec:entlueftungsvorrichtung}
+
+Für das Entlüften selbst wurde eine Vorrichtung entwickelt, die schnelles und
+blasenfreies Entlüften ermöglicht. Dazu wurde ein leerer Wasserbehälter
+aufgeschnitten und mit zwei Schlauchanschlüssen versehen. An diesen sind die
+Verbindungsschläuche zum Kühlkreis befestigt. Für ein blasenfreies Entlüften
+müssen beide Anschlüsse stets unter Wasser stehen, und die Schläuche dürfen
+keine Luft enthalten.
+
+% FIGURE-VORSCHLAG 18: Foto der Entlüftungsvorrichtung (aufgeschnittener Behälter
+% mit beiden Schlauchanschlüssen), ggf. mit Pfeilen für die Strömungsrichtung.
+
+% TODO (optional): Nummerierter Ablauf des Entlüftens als \begin{enumerate}
+% (Vorbefüllen -> Vorrichtung anschließen -> Pumpe starten -> Luftfreiheit prüfen).
