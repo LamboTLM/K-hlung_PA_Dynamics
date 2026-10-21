@@ -3,7 +3,6 @@
 
 Um eine fundierte Analyse des Kühlsystems durchzuführen und die theoretischen Modelle zu validieren, ist eine präzise und hochfrequente Datenerfassung unerlässlich. Dieses Kapitel beschreibt die messtechnische Infrastruktur des Fahrzeugs sowie die zugrunde liegende Systemarchitektur. Dabei wird zunächst auf die bereits im Fahrzeug integrierte Bestandssensorik eingegangen, bevor die im Rahmen dieser Arbeit implementierten Erweiterungen zur detaillierten thermischen Überwachung erläutert werden. Ziel ist es, eine lückenlose Messkette abzubilden – von der physikalischen Messgröße über die Signalaufbereitung bis hin zur digitalen Protokollierung im Datenlogger.
 
-% -------------------------------------------------------
 \section{Bestandssensorik und Infrastruktur}
 \label{sec:bestandssensorik}
 
@@ -16,7 +15,6 @@ Die am Fahrzeug vorhandene elektronische Infrastruktur bildet das Rückgrat der 
     \label{fig:Systemarchtiektur_RP25e}
 \end{figure}
 
-% -------------------------------------------------------
 \subsection{Zentrale Steuereinheiten (VCU \& PDU)}
 \label{subsec:vcu_pdu}
 
@@ -55,7 +53,6 @@ Die PDU fungiert als intelligente, softwarebasierte Stromverteilung und ersetzt 
 
 Zusammen bilden VCU und PDU die Grundlage, um nicht nur Temperaturen, sondern auch die dafür aufgewendete elektrische Energie und den Betriebszustand der Aktoren zu protokollieren.
 
-% -------------------------------------------------------
 \subsection{Datenerfassung und Telemetrie}
 \label{subsec:datenlogger}
 
@@ -70,7 +67,6 @@ Die zentrale Einheit zur persistenten Speicherung aller fahrzeugrelevanten Daten
 
 Zur Auswertung der umfangreichen Datensätze wird ein eigens entwickeltes MATLAB-Skript eingesetzt. Dieses ermöglicht es, die Rohdaten zu filtern, physikalische Einheiten zuzuordnen und thermische Zusammenhänge -- wie etwa die Trägheit des Kühlmittels im Verhältnis zu Lastspitzen der Motoren -- zu visualisieren. Erst durch diese automatisierte Aufbereitung lassen sich die im Wettbewerb oder auf dem Prüfstand gewonnenen Daten für die Validierung der Kühlungsauslegung nutzen.
 
-% -------------------------------------------------------
 \subsection{Signalaufbereitung mittels Messbrücken}
 \label{subsec:messbruecken}
 
@@ -91,7 +87,6 @@ Ein wesentlicher Vorteil dieses differenziellen Messprinzips ist die Kompensatio
 
 Die Anzahl der verfügbaren Messbrücken ist durch den Bauraum und die Komplexität der Signalverstärkung begrenzt, weshalb eine gezielte Priorisierung der thermisch kritischsten Messstellen erforderlich ist.
 
-% -------------------------------------------------------
 \section{Sensorik der Antriebseinheiten}
 \label{sec:antriebssensorik}
 
@@ -125,20 +120,14 @@ Im Fahrzeug sind zwei Kühlmittelpumpen verbaut, die die beiden Kühlkreisläufe
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{pics/Pumpe_Vitesco.png}
-    % \caption{Einbausituation der beiden Kühlmittelpumpen im Fahrzeug mit Kennzeichnung der jeweiligen Kreislaufzugehörigkeit.}
     \caption{Verbaute Pumpe der Firma Vitesco mit 24V und (60W) Leistung.}
     \label{fig:pumpen_einbau}
 \end{figure}
 
-% TODO: Subsektionen füllen oder nach Verfügbarkeit der Daten ergänzen
-% \subsection{Kühlmittelpumpen und PWM-Feedback}
-% \subsection{Lüftersteuerung und Betriebszustände}
-
-% -------------------------------------------------------
 \section{Projektspezifische Erweiterung der Messtechnik}
 \label{sec:erweiterung}
 
-Die in Abschnitt~\ref{sec:bestandssensorik} beschriebene Bestandssensorik liefert zwar eine solide Ausgangsbasis, lässt jedoch für eine vollständige thermische Bilanzierung des Kühlsystems wesentliche Messgrößen offen. Im Rahmen dieser Arbeit wird die Messtechnik daher gezielt um drei Sensortypen erweitert: einen Volumenstromsensor, zusätzliche Temperaturmessstellen sowie Differenzdrucksensoren.
+Die in Abschnitt~\ref{sec:bestandssensorik} beschriebene Bestandssensorik liefert zwar eine solide Ausgangsbasis, lässt jedoch für eine vollständige thermische Bilanzierung des Kühlsystems wesentliche Messgrößen offen. Im Rahmen dieser Arbeit wird die Messtechnik daher gezielt um zwei Sensortypen erweitert: einen Volumenstromsensor sowie zusätzliche Temperaturmessstellen
 
 \subsection{Volumenstrom-Sensor}
 \label{subsec:volumenstrom}

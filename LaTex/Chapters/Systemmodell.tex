@@ -1,0 +1,220 @@
+\chapter{Systemmodelle}
+\label{ch:messtechnik}
+
+Zur Zukünfitigen Auslegung und Validierung wurde darauf gesetzt ein Simulink modell von der Fahrzeug kühlung aufzubauen. Diese soll alle Thermischen Komponente beinhalten und soll in Zukunft zur Auslegung und Validierung der Kühlung verwendet werden könnne. Dabei ist besonders relevant alle für die Jühlung relevanten komponente darzustellen oder zumindest die Thermischen einflussgrößen
+
+Um eine Sinnvolle Auslegung zu ermögliche soll die Fahrtsitationen durch eine Vielzahl an Szenarion möglich sein. Dabei sollen sowohl Standard Fahrtsitutionen Analysierbar sein Dazu zählt: Gerade Auswafhrt, Braketest, Acceleartion und Skidpad als auch Dynmaische woei Freie Fahren. Hierzu zählen dann die Disziplinen Autocross Skidpad sowie selbst aufgestllte Testtracks am lokalen Testplatzt. 
+
+Das setzt voraus das Daten aus einer Vielzahl von Quellen eingespielt werden könnnen müssen. Die hauptquellen die hier identifiziert wurden sind Loggingdaten des Fahrzeugs welche Sensor werte im .mf4 format aufweise, diese sind auch möglicherweise verrauscht oder unterliegen anderen Störgrößen der Messtechnik oder die verwendung von Simulationsdaten aus der Rundenzeit Simulation die dem Dynamics bereits vorliegt.
+
+Eine wichtige anmerkung ist an der Stelle das die Thermischen werte direkt das Fahrverhalten des Fahrzeugs beeinflussen. Hier liegen effekte wie das D-Rating also das reduzieren der Leistung aufgrund der Übertemperatur oder auch eine anpassung des Fahrstils des Fahrers um ein Überhitzen der Motoren oder anderer Komponenten zu beeinflussen. Dies betrifft vor allem die Echten Sensor daten kann aber auch bereits in der Laptime simulation über das dort parralel mitentwicklete kühlungsmodell berücksichtigt werden. Dadruch können auslegungen ebenfalls als Ausreichend bewertet werden obwohl die lasten vom Fahrer reduziert wurden und dieser sie auf einem Konstanten Level halten was einer ausreichendne Auslegung täuschend ähnlich sehen würde. 
+
+Der Aufbau des modells gliedert sich in die folgenden Teilmodule:
+
+\chapter{Systemmodelle}
+\label{ch:systemmodelle}
+
+\section{Zielsetzung des Kühlungsmodells}
+\label{sec:modell_ziel}
+
+Zur zukünftigen Auslegung und Validierung der Fahrzeugkühlung wird ein
+Simulink-Modell des Gesamtsystems aufgebaut. Das Modell bildet alle für die
+Kühlung relevanten Komponenten ab bzw. berücksichtigt zumindest deren
+thermische Einflussgrößen. Es soll im weiteren Projektverlauf sowohl zur
+Dimensionierung neuer Kühlkonzepte als auch zur Validierung bestehender
+Konzepte eingesetzt werden.
+
+% FIGURE-VORSCHLAG 1: Übersichts-Blockschaltbild des Gesamtmodells
+% (Datenquellen -> Datenaufbereitung -> Thermonetzwerk -> Ausgaben/Bewertung).
+% Passt hier ans Ende der Section, als Orientierung für das ganze Kapitel.
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=\textwidth]{bilder/modell_uebersicht}
+    \caption{Übersicht über die Struktur des Kühlungsmodells}
+    \label{fig:modell_uebersicht}
+\end{figure}
+
+\section{Betrachtete Fahrszenarien}
+\label{sec:fahrszenarien}
+
+Für eine belastbare Auslegung muss die Kühlung unter einer Vielzahl
+unterschiedlicher Fahrsituationen analysierbar sein. Das Modell unterscheidet
+dabei zwei Gruppen von Szenarien:
+
+\begin{itemize}
+    \item \textbf{Standardszenarien:} Geradeausfahrt (Auslauf), Bremstest,
+          Acceleration und Skidpad. Diese sind klar definiert und gut
+          reproduzierbar.
+    \item \textbf{Dynamische Szenarien (freie Fahrt):} Hierzu zählen die
+          Disziplinen Autocross sowie selbst aufgestellte Teststrecken auf
+          dem lokalen Testgelände.
+\end{itemize}
+
+\section{Datenquellen}
+\label{sec:datenquellen}
+
+Aus den Szenarien folgt, dass das Modell Daten aus unterschiedlichen Quellen
+verarbeiten können muss. Es wurden zwei Hauptquellen identifiziert:
+
+\begin{enumerate}
+    \item \textbf{Fahrzeug-Logdaten:} Die Sensorwerte liegen im
+          \texttt{.mf4}-Format vor. Sie sind messtechnisch bedingt
+          möglicherweise verrauscht oder durch weitere Störgrößen der
+          Messtechnik beeinflusst und müssen daher aufbereitet werden
+          (vgl.~Kapitel~\ref{ch:messtechnik}).
+    \item \textbf{Simulationsdaten:} Die im Team Dynamics bereits vorhandene
+          Rundenzeitsimulation liefert simulierte Fahrzustände als Eingang.
+\end{enumerate}
+
+% FIGURE-VORSCHLAG 2: Beispielsignal aus einer .mf4-Messung, Rohdaten vs.
+% aufbereitet (z.B. Temperatur oder Strom). Zeigt anschaulich, warum die
+% Datenaufbereitung nötig ist.
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\textwidth]{bilder/rohdaten_vs_gefiltert}
+    \caption{Beispiel eines Messsignals im Rohzustand und nach der Aufbereitung}
+    \label{fig:rohdaten_gefiltert}
+\end{figure}
+
+\section{Rückwirkung der Thermik auf das Fahrverhalten}
+\label{sec:rueckwirkung}
+
+Die thermischen Zustände beeinflussen unmittelbar das Fahrverhalten des
+Fahrzeugs. Zum einen reduziert das Derating die Leistung bei Übertemperatur.
+Zum anderen passt der Fahrer seinen Fahrstil an, um ein Überhitzen der Motoren
+oder anderer Komponenten zu vermeiden.
+
+Dieser Effekt betrifft vor allem die realen Messdaten. Er kann aber auch in
+der Rundenzeitsimulation berücksichtigt werden, in der parallel ein
+Kühlungsmodell mitentwickelt wird.
+
+Hieraus ergibt sich eine wichtige Einschränkung bei der Bewertung: Reduziert
+der Fahrer die Last oder hält er sie auf einem konstanten Niveau, kann eine
+Auslegung fälschlicherweise als ausreichend bewertet werden, obwohl sie bei
+voller Leistungsabgabe nicht genügen würde. Die Messdaten sind daher stets im
+Zusammenhang mit dem tatsächlichen Fahrerverhalten und möglichen
+Deratingeingriffen zu interpretieren.
+
+% FIGURE-VORSCHLAG 3: Wirkkette/Regelkreis Temperatur -> Derating bzw.
+% Fahrerreaktion -> Last -> Verlustleistung -> Temperatur.
+% Alternativ oder zusätzlich: Messung mit Leistung und Temperatur über der Zeit,
+% in der die Leistungsreduktion bei Übertemperatur sichtbar ist.
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\textwidth]{bilder/rueckwirkung_thermik}
+    \caption{Rückwirkung der Bauteiltemperatur auf die abrufbare Leistung}
+    \label{fig:rueckwirkung}
+\end{figure}
+
+\section{Modellaufbau}
+\label{sec:modellaufbau}
+
+Der Aufbau des Modells gliedert sich in die folgenden Teilmodule:
+
+% TODO: Liste der Teilmodule einfügen
+\begin{itemize}
+    \item Akkumulator
+    \item Bremse
+    \item Motoren
+    \item Inverter
+\end{itemize}
+
+% FIGURE-VORSCHLAG 4: Simulink-Screenshot der obersten Modellebene
+% mit den Teilmodulen.
+
+\subsection{Akkumodell}
+\label{subsec:akkumodell}
+
+Das Modell für die Verlustleistung des Akkus wurde bewusst einfach gehalten.
+Bei Pouchzellen treten die typischen Hotspots an den Zelltabs auf, insbesondere
+am negativen Zelltab~\cite{TODO_Quelle}. Der Zellkörper erwärmt sich ebenfalls,
+jedoch deutlich schwächer als die dünnen Tabs. Entsprechend beschränkte sich die
+Kühlung des Akkus bisher auf den negativen Zelltab.
+
+% FIGURE-VORSCHLAG 5: Skizze oder Foto einer Pouchzelle mit markierten Zelltabs
+% (positiv/negativ) und Hotspot-Bereich, ggf. mit qualitativer Temperaturverteilung.
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.7\textwidth]{bilder/pouchzelle_hotspots}
+    \caption{Pouchzelle mit Zelltabs und typischem Hotspot am negativen Tab}
+    \label{fig:pouchzelle_hotspots}
+\end{figure}
+
+Für die Modellierung wurde der Battery Builder aus Simscape Battery in MATLAB
+verwendet. Damit lassen sich einzelne Zellen, Stacks und der gesamte Akkuaufbau
+abbilden und neben den elektrischen Akkueffekten auch thermisch modellieren.
+Der Ansatz erlaubt es, Logging- und Rundenzeitsimulationsdaten als Eingang zu
+nutzen, um die Leistungsdaten des Akkus vorzugeben.
+
+Neben den thermischen Simulationen kann das Modell auch zur Akkuauslegung
+eingesetzt werden. Diese ist nicht Gegenstand der vorliegenden Arbeit, bietet
+aber eine gute Grundlage für eine einfache zukünftige Auslegung von Akku und
+Akkukühlung.
+
+% FIGURE-VORSCHLAG 6: Screenshot des Battery Builders bzw. des Akku-Aufbaus
+% (Zelle -> Stack -> Pack) mit der verwendeten Konfiguration.
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\textwidth]{bilder/battery_builder_aufbau}
+    \caption{Aufbau des Akkumodells im Battery Builder}
+    \label{fig:battery_builder}
+\end{figure}
+
+% FIGURE-VORSCHLAG 7 (optional): Simulierte Tab-Temperatur über der Zeit für ein
+% Szenario, z.B. Autocross, mit Eingangsleistung des Akkus darüber.
+
+\subsubsection{Bremsen}
+\subsubsection{Motoren}
+\subsubsection{Motoren}
+\label{subsubsec:motoren}
+
+Für die Modellierung der Motoren sollte, wie in Abschnitt~\ref{TODO_Abschnitt}
+beschrieben, ein Wirkungsgradkennfeld über Messungen erstellt werden. Dies war
+nicht möglich. Stattdessen wird das vom Hersteller mitgelieferte
+Wirkungsgradkennfeld verwendet.
+
+Das Modell besteht aus einer einfachen thermischen Masse. Eingangsgrößen sind
+Drehmoment $M$ und Drehzahl $n$. Aus dem Kennfeld wird der Wirkungsgrad
+$\eta(M,n)$ bestimmt und daraus die in den Motor eingebrachte Verlustleistung
+berechnet:
+
+\begin{equation}
+    P_\mathrm{V} = P_\mathrm{mech} \left( \frac{1}{\eta(M,n)} - 1 \right)
+                 = 2\pi\, n\, M \left( \frac{1}{\eta(M,n)} - 1 \right)
+    \label{eq:verlustleistung_motor}
+\end{equation}
+
+Die Wärmeabfuhr über die Wasserkühlung der Motoren wird ebenfalls
+berücksichtigt.
+
+% FIGURE-VORSCHLAG 8: Wirkungsgradkennfeld des Herstellers (Drehmoment über
+% Drehzahl, Wirkungsgrad als Konturplot), ggf. mit eingezeichneten
+% Betriebspunkten aus einer Messfahrt.
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\textwidth]{bilder/motor_wirkungsgradkennfeld}
+    \caption{Wirkungsgradkennfeld des Motors (Herstellerangabe)}
+    \label{fig:motor_kennfeld}
+\end{figure}
+
+Die Modellparameter, z.\,B.\ Wärmekapazität und Wärmeübergänge, lassen sich
+nur aus anderen Versuchen ableiten oder müssen an vielen Stellen geschätzt
+werden. Eine ausführliche Parameteridentifikation steht daher noch aus.
+
+Das Modell ist als einfaches Simscape-Modell aufgebaut. Jeder Motor bildet ein
+eigenes Subsystem. Dadurch lassen sich unterschiedliche Aufbauten und
+Kühllayouts sowie die Pumpenauswahl validieren.
+
+% FIGURE-VORSCHLAG 9: Simscape-Screenshot eines Motor-Subsystems
+% (thermische Masse, Verlustleistungsquelle, Kühlkreis-Anbindung)
+% oder alternativ ein thermisches Ersatzschaltbild als Skizze.
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\textwidth]{bilder/motor_subsystem}
+    \caption{Motor-Subsystem im Simscape-Modell}
+    \label{fig:motor_subsystem}
+\end{figure}
+
+\subsubsection{Inverter}
+Kein plan mehr. Ich hab den nie sauber modelliert. Die sind arsch komplex
+
