@@ -182,18 +182,145 @@ Das Herzstück des Sensors bildet eine dünne Siliziummembran. Eine anliegende D
 \section{Positionierung und Validierung der Sensorik}
 \label{sec:validierung}
 
-% TODO: Abschnitt nach Abschluss der experimentellen Arbeiten ausformulieren.
-% Geplante Inhalte:
-% - Initialer Versuchsaufbau und Funktionsprüfung im Labor
-%   (Motor/Inverter mit temperiertem Wasser befüllen,
-%    Sensor-Validierung, Zeitkonstanten der Sensorik)
-% - Radiator/Lüfter Volumenstrom-Validierung am Fahrzeug mittels Pitot-Rohr
-% - Experimentelle Datenerhebung am Motorenprüfstand
-% - Systemintegration im Gesamtfahrzeug
+\subsection{Sensorik und Validierung}
+\label{subsec:sensorik}
 
-% -------------------------------------------------------
-\section{Charakterisierung der Systemkomponenten}
-\label{sec:charakterisierung}
+\subsubsection{Volumenstromsensor}
+
+Der Volumenstromsensor dient dazu, im Stand bzw. im geschlossenen
+Kühlkreislauf den Volumenstrom zu bestimmen. Anhand der bekannten
+Pumpenkennlinie und der Stromaufnahme der Pumpe kann anschließend geprüft
+werden, ob dieser Volumenstrom auch in anderen Betriebssituationen erreicht
+wird. Treten Abweichungen auf, lassen sich deren Ursachen und Randbedingungen
+eingrenzen.
+
+\subsubsection{Temperatursensorik und Ausbaustrategie}
+
+Die Temperatursensorik wurde im Verlauf der Arbeit entwickelt. Aufgrund der
+geringen Verfügbarkeit der WPMD-Platinen konnte bisher nur ein Radpaket
+ausgestattet werden. Ein Nachrüsten weiterer Sensoren ist vorgesehen.
+Die erarbeitete Strategie gliedert sich in drei Stufen:
+
+\begin{description}
+    \item[Stufe 1] Vermessung eines Motors an einem Radpaket. Damit lässt sich
+          die grundsätzliche Kühlmitteltemperatur validieren. Aus bekanntem
+          Volumenstrom und Temperaturanstieg kann zudem ein Wärmestrom
+          bestimmt werden. Wegen der thermischen Trägheit des Motors ist
+          dies jedoch nur für quasistatische Fahrsituationen aussagekräftig.
+    \item[Stufe 2] Ein Radpaketpaar, ein Inverterpaar und ein Radiatorpaar.
+          Damit können alle Komponenten eines Kühlkreislaufs klassifiziert
+          werden. Die ermittelten Kennwerte sind Grundlage für die in
+          Abschnitt~\ref{TODO_Abschnitt} entwickelten Systemmodelle.
+    \item[Stufe 3] Vollständige Vermessung. Alle vier Motoren erhalten ein
+          Temperatursensorpaar, ebenso die Inverterkühlung sowie beide
+          Radiatoren. Zusätzliche Sensoren erfassen die Lufttemperatur.
+\end{description}
+
+\subsubsection{Validierung der Sensorik}
+
+\paragraph{Volumenstrom.} Der Sensor wurde durch Auffangen des Förderstroms
+in einem Behälter überprüft. In $t = 60\,\mathrm{s}$ wurden
+$V = 21\,\mathrm{l}$ gefördert. Daraus ergibt sich der Referenzvolumenstrom
+\begin{equation}
+    \dot{V}_\mathrm{ref} = \frac{V}{t}
+    = \frac{21\,\mathrm{l}}{60\,\mathrm{s}}
+    = 21\,\mathrm{l/min} = 0{,}35\,\mathrm{l/s}.
+\end{equation}
+Der Sensor zeigte $\dot{V}_\mathrm{Sensor} = 21{,}7\,\mathrm{l/min}$. Die
+relative Abweichung beträgt
+\begin{equation}
+    e = \frac{\dot{V}_\mathrm{Sensor} - \dot{V}_\mathrm{ref}}{\dot{V}_\mathrm{ref}}
+    = 3{,}33\,\%.
+\end{equation}
+Sie liegt innerhalb der Herstellertoleranz von $10\,\%$. Zusätzlich
+wurde während des Versuchs eine Pumpenstromaufnahme von $3\,\mathrm{A}$
+gemessen, die als Referenz für den weiteren Betrieb dient. Die Unsicherheit
+der Referenzmessung aus Zeitnahme und Volumenablesung beträgt $2{,}5\,\%$.
+
+\paragraph{Temperatur: Versuchsdurchführung.} Alle PT100-Sensoren wurden
+gleichzeitig in siedendes Wasser getaucht. Nach Einstellen eines stationären
+Plateaus wurde über $t = 150\,\mathrm{s}$ per Handnotiz aufgezeichnet. Die Referenztemperatur folgt aus dem
+Luftdruck am Messtag ($p = 964\,\mathrm{hPa}$) zu
+$T_\mathrm{ref} = 98{,}61\,^\circ\mathrm{C}$.
+
+\paragraph{Temperatur: Auswertung.} Je Sensor $i$ wird der Mittelwert
+$\bar{T}_i$ im Plateau gebildet. Die Abweichung zur Referenz ist
+$\Delta T_i = \bar{T}_i - T_\mathrm{ref}$. Als Streuung zwischen den
+Sensoren dient die Standardabweichung der $\bar{T}_i$.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Ergebnis des Siedetests der PT100-Sensoren}
+    \label{tab:pt100_siedetest}
+    \begin{tabular}{lrrr}
+        \hline
+        Sensor & $\bar{T}_i$ in $^\circ\mathrm{C}$ & $\Delta T_i$ in $\mathrm{K}$ & $s_i$ in $\mathrm{K}$ \\
+        \hline
+        Sensor 1 & $98{,}52$ & $-0{,}09$ & $0{,}03$ \\
+        Sensor 2 & $98{,}78$ & $0{,}17$  & $0{,}05$ \\
+        Sensor 3 & $98{,}47$ & $-0{,}14$ & $0{,}04$ \\
+        Sensor 4 & $98{,}66$ & $0{,}05$  & $0{,}04$ \\
+        Sensor 5 & $98{,}81$ & $0{,}20$  & $0{,}03$ \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\paragraph{Temperatur: Bewertung.} Die maximale Abweichung beträgt
+$0{,}20\,\mathrm{K}$, die Streuung zwischen den Sensoren
+$0{,}15\,\mathrm{K}$. Zum Vergleich: Die Toleranz nach DIN EN 60751 beträgt
+bei $100\,^\circ\mathrm{C}$ für Klasse~A $0{,}35\,\mathrm{K}$ und für
+Klasse~B $0{,}8\,\mathrm{K}$. Der Test erfolgte als Einpunktprüfung bei etwa
+$100\,^\circ\mathrm{C}$, eine Aussage über den gesamten Betriebsbereich ist
+daraus nicht ableitbar.
+
+\paragraph{Temperatur: Zeitkonstante.} Zur Bestimmung der Zeitkonstante
+$\tau$ wird zunächst vor dem Versuch die relevante Schwellentemperatur
+berechnet. Dazu werden der Anfangswert $T_0$ (Sensor in Raumluft) und der
+Endwert $T_\infty$ (gerührtes siedendes Wasser) herangezogen. Für ein
+Verzögerungsglied 1.~Ordnung
+\begin{equation}
+    T(t) = T_\infty - (T_\infty - T_0)\,e^{-t/\tau}
+\end{equation}
+ist $\tau$ genau dann verstrichen, wenn der Sensor $63{,}2\,\%$ des
+Temperatursprungs durchlaufen hat:
+\begin{equation}
+    T_\tau = T_0 + 0{,}632\,(T_\infty - T_0)
+    = 22{,}4\,^\circ\mathrm{C} + 0{,}632 \cdot 76{,}2\,\mathrm{K}
+    = 70{,}6\,^\circ\mathrm{C}.
+\end{equation}
+Anschließend wird der Sensor aus Raumluft schnell in das gerührte
+siedende Wasser getaucht und mit $5\,\mathrm{Hz}$ aufgezeichnet. Die
+Zeitkonstante $\tau$ ist die Zeit zwischen dem Eintauchen (Signal verlässt
+$T_0$) und dem erstmaligen Erreichen von $T_\tau$. Bei $5\,\mathrm{Hz}$
+beträgt die Zeitauflösung $0{,}2\,\mathrm{s}$.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Zeitkonstanten der PT100-Sensoren im gerührten Wasserbad}
+    \label{tab:pt100_tau}
+    \begin{tabular}{lrrr}
+        \hline
+        Sensor & $t_{63}$ in $\mathrm{s}$ & $\tau_\mathrm{Fit}$ in $\mathrm{s}$ & $t_{90}$ in $\mathrm{s}$ \\
+        \hline
+        Sensor 1 & $3{,}4$ & $3{,}3$ & $7{,}6$ \\
+        Sensor 2 & $3{,}6$ & $3{,}6$ & $8{,}3$ \\
+        Sensor 3 & $3{,}0$ & $2{,}9$ & $6{,}7$ \\
+        Sensor 4 & $3{,}1$ & $3{,}1$ & $7{,}1$ \\
+        Sensor 5 & $4{,}2$ & $4{,}1$ & $9{,}4$ \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\paragraph{Temperatur: Bewertung der Zeitkonstante.} Die Zeitkonstanten
+liegen zwischen $2{,}9\,\mathrm{s}$ und $4{,}1\,\mathrm{s}$. Bei einer
+Temperaturrampe $\mathrm{d}T/\mathrm{d}t$ zeigt der Sensor einen
+Schleppfehler von $\Delta T = \tau \cdot \mathrm{d}T/\mathrm{d}t$, bei
+$0{,}5\,\mathrm{K/s}$ und $\tau = 3{,}6\,\mathrm{s}$ also
+$1{,}8\,\mathrm{K}$. Die Werte gelten für die Umströmung im Wasserbad
+und können im Kühlkreis mit anderer Strömungsgeschwindigkeit abweichen.
+
+\section{Ausarbeitung eines Testplanes}
+\label{sec:Testplanung}
 
 % TODO: Abschnitt nach Abschluss der Messungen ausformulieren.
 % Geplante Messprogramme:
