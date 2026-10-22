@@ -1,0 +1,326 @@
+\section{Grundlagen der Flüssigkeitskühlung}
+\label{sec:grundlagen_kuehlung}
+
+\subsection{Wärmeentstehung und Kühlkonzept}
+\label{subsec:waermeentstehung}
+
+Im Betrieb eines elektrisch angetriebenen Formula-Student-Fahrzeugs entstehen in
+mehreren Komponenten thermische Verluste. Maßgeblich sind die Elektromotoren und
+die Wechselrichter, die einen Teil der aufgenommenen elektrischen Leistung als
+Wärme an ihre Umgebung abgeben. Wird diese Wärme nicht ausreichend abgeführt,
+steigen die Bauteiltemperaturen an. Die Folgen sind eine Leistungsreduktion
+(Derating), im ungünstigen Fall die Abschaltung oder die Beschädigung der
+Komponenten.
+
+Bei der Flüssigkeitskühlung nimmt ein Kühlmittel die Verlustwärme direkt an der
+Komponente auf und transportiert sie zu einem Wärmetauscher (Radiator). Dort
+wird die Wärme an die Umgebungsluft abgegeben, und das abgekühlte Kühlmittel
+strömt zurück zu den Komponenten. Es entsteht ein geschlossener Kühlkreislauf
+(Abbildung~\ref{fig:kuehlkreislauf_prinzip}).
+
+% --- Bildvorschlag 1 ---
+\begin{figure}[htb]
+  \centering
+  % \includegraphics[width=0.8\textwidth]{bilder/kuehlkreislauf_prinzip}
+  \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}Platzhalter: Prinzipskizze
+  Kühlkreislauf (Pumpe, Motoren, Inverter, Radiator, Lüfter)\vspace{3cm}}}
+  \caption{Prinzipieller Aufbau eines geschlossenen Flüssigkeitskühlkreislaufs}
+  \label{fig:kuehlkreislauf_prinzip}
+\end{figure}
+
+\subsection{Wärmetransport im Kühlmittel}
+\label{subsec:waermetransport}
+
+Die vom Kühlmittel abgeführte Wärmeleistung ergibt sich aus dem Massenstrom
+und der Temperaturänderung zwischen Ein- und Austritt der Komponente:
+\begin{equation}
+  \dot{Q} = \dot{m} \cdot c_p \cdot \Delta T
+  \label{eq:waermeleistung}
+\end{equation}
+mit
+\begin{itemize}
+  \item $\dot{Q}$ -- abgeführte Wärmeleistung in \si{\watt},
+  \item $\dot{m}$ -- Massenstrom des Kühlmittels in \si{\kilo\gram\per\second},
+  \item $c_p$ -- spezifische Wärmekapazität des Kühlmittels in
+        \si{\joule\per\kilo\gram\per\kelvin},
+  \item $\Delta T$ -- Temperaturdifferenz zwischen Ein- und Austritt in \si{\kelvin}.
+\end{itemize}
+
+Gemessen wird in der Praxis der Volumenstrom $\dot{V}$. Der Massenstrom folgt
+über die Dichte $\rho$ des Kühlmittels:
+\begin{equation}
+  \dot{m} = \rho \cdot \dot{V}
+  \label{eq:massenstrom}
+\end{equation}
+Gleichung~\eqref{eq:waermeleistung} zeigt, dass sich eine gegebene Wärmeleistung
+über einen großen Volumenstrom bei kleinem $\Delta T$ oder über einen kleinen
+Volumenstrom bei großem $\Delta T$ abführen lässt. Ein kleines $\Delta T$ ist
+günstig, weil die Komponenten dann gleichmäßiger und auf niedrigerem
+Temperaturniveau gekühlt werden. Der Volumenstrom ist jedoch durch die Pumpe und
+den Druckverlust des Kreislaufs begrenzt (vgl.
+Abschnitt~\ref{subsec:hydraulik}). Das gilt besonders bei hintereinander
+geschalteten Komponenten, denn dort erwärmt sich das Kühlmittel entlang des
+Strömungswegs, und die letzte Komponente wird mit dem wärmsten Kühlmittel
+versorgt.
+
+Gegenüber einer direkten Luftkühlung hat die Flüssigkeitskühlung einen
+wesentlichen Vorteil. Bezogen auf das Volumen speichert Wasser deutlich mehr
+Wärme als Luft: Die volumetrische Wärmekapazität $\rho \cdot c_p$ liegt bei
+Wasser etwa um den Faktor \num{3500} über der von Luft. Dadurch lassen sich auch
+bei kompakter Bauweise hohe Wärmeströme abführen. Die Kennwerte des verwendeten
+Kühlmittels sind in Tabelle~\ref{tab:stoffwerte} angegeben.
+
+\begin{table}[htb]
+  \centering
+  \caption{Stoffwerte von destilliertem Wasser bei Umgebungsdruck}
+  \label{tab:stoffwerte}
+  \begin{tabular}{|l|c|c|c|}
+    \hline
+    Größe & \multicolumn{2}{c|}{Wert} & Einheit \\
+    \cline{2-3}
+          & $20\,^{\circ}\mathrm{C}$ & $60\,^{\circ}\mathrm{C}$ & \\
+    \hline
+    Dichte $\rho$              & 998  & 983  & $\mathrm{kg/m^3}$ \\
+    \hline
+    Spez. Wärmekapazität $c_p$ & 4182 & 4185 & $\mathrm{J/(kg\,K)}$ \\
+    \hline
+    Dyn. Viskosität $\eta$     & $1{,}00 \cdot 10^{-3}$ & $0{,}47 \cdot 10^{-3}$ & $\mathrm{Pa\,s}$ \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\subsection{Hydraulische Auslegung}
+\label{subsec:hydraulik}
+
+Neben dem Wärmetransport bestimmen die hydraulischen Eigenschaften die Auslegung
+des Kühlsystems. In Schläuchen, Kupplungen, Radiator, Motoren und Inverter
+entstehen Druckverluste, die die Pumpe überwinden muss. Der Gesamtdruckverlust
+einer Reihenschaltung ist die Summe der Einzelverluste:
+\begin{equation}
+  \Delta p_\mathrm{ges} = \sum_i \Delta p_i
+  \label{eq:dp_ges}
+\end{equation}
+Bei turbulenter Strömung wächst der Druckverlust einer Komponente näherungsweise
+quadratisch mit dem Volumenstrom. Er lässt sich über einen
+Widerstandskoeffizienten $R_i$ beschreiben:
+\begin{equation}
+  \Delta p_i = R_i \cdot \dot{V}^{2}
+  \label{eq:dp_komponente}
+\end{equation}
+Dieser Zusammenhang ist die Anlagenkennlinie. Zusammen mit der Pumpenkennlinie
+ergibt sich der Betriebspunkt des Systems (Abbildung~\ref{fig:pumpe_anlage}):
+Die Pumpe stellt genau den Volumenstrom ein, bei dem der von ihr gelieferte
+Druck dem Druckverlust der Anlage entspricht. Bei Reihenschaltung addieren sich
+die Widerstände. Bei Parallelschaltung teilt sich der Volumenstrom auf die
+Zweige auf, und der Druckverlust ist in allen Zweigen gleich. Eine Änderung am
+Layout, etwa zusätzliche Komponenten oder eine andere Schlauchführung,
+verschiebt daher den Betriebspunkt und damit den abführbaren Wärmestrom nach
+Gleichung~\eqref{eq:waermeleistung}.
+
+% --- Bildvorschlag 2 ---
+\begin{figure}[htb]
+  \centering
+  % \includegraphics[width=0.7\textwidth]{bilder/pumpe_anlagenkennlinie}
+  \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}Platzhalter: Pumpenkennlinie
+  und Anlagenkennlinie $\Delta p(\dot{V})$ mit Betriebspunkt\vspace{3cm}}}
+  \caption{Pumpen- und Anlagenkennlinie mit resultierendem Betriebspunkt}
+  \label{fig:pumpe_anlage}
+\end{figure}
+
+Für die Auslegung muss die Pumpe somit den benötigten Volumenstrom gerade bei
+dem im System auftretenden Gesamtdruckverlust liefern. Die Widerstandswerte der
+Einzelkomponenten des Fahrzeugs wurden in dieser Arbeit messtechnisch bestimmt
+(Abschnitt~\ref{sec:hydraulik_vermessung}) und bilden die Grundlage für die
+Simulation des Kreislaufs.
+
+\section{Thermische Anforderungen}
+\label{sec:thermische_anforderungen}
+
+Das Kühlsystem muss gewährleisten, dass alle thermisch kritischen Komponenten
+während des gesamten Fahrzeugbetriebs innerhalb ihrer zulässigen
+Temperaturbereiche betrieben werden. Zu betrachten sind insbesondere die
+Elektromotoren und die Wechselrichter.
+
+\paragraph{Kreislaufaufteilung.}
+Das Fahrzeug besitzt zwei getrennte Kühlkreisläufe
+(Abbildung~\ref{fig:kreislaufaufteilung}):
+\begin{itemize}
+  \item \textbf{Kreislauf 1:} Versorgung der Motoren der Hinterachse.
+        Die maximal zulässige Kühlmitteltemperatur beträgt \SI{90}{\celsius}.
+  \item \textbf{Kreislauf 2:} Das Kühlmittel durchströmt zunächst die
+        Wechselrichter und wird anschließend auf die Motoren der Vorderachse
+        verteilt. Wegen der geringeren zulässigen Betriebstemperatur der
+        Wechselrichter wird für diesen Kreislauf eine maximale
+        Kühlmitteltemperatur von \SI{60}{\celsius} angesetzt.
+\end{itemize}
+
+% --- Bildvorschlag 1 ---
+\begin{figure}[htb]
+  \centering
+  % \includegraphics[width=0.85\textwidth]{bilder/kreislaufaufteilung}
+  \fbox{\parbox{0.85\textwidth}{\centering\vspace{3cm}Platzhalter: Schaltbild
+  beider Kreisläufe (Kreislauf 1: Pumpe, Radiator, Motoren HA; Kreislauf 2:
+  Pumpe, Radiator, Inverter, Motoren VA) mit Temperaturgrenzen\vspace{3cm}}}
+  \caption{Aufteilung des Kühlsystems in zwei getrennte Kreisläufe}
+  \label{fig:kreislaufaufteilung}
+\end{figure}
+
+\paragraph{Auslegungsgrößen.}
+Neben den zulässigen Temperaturen ist die abzuführende Verlustleistung die
+wesentliche Auslegungsgröße. Das Kühlsystem muss auch unter ungünstigen
+Bedingungen eine ausreichende Wärmeabfuhr sicherstellen. Als kritischer
+Auslegungsfall wird eine hohe Umgebungstemperatur von bis zu
+\SI{40}{\celsius} angesetzt. Die erforderliche Kühlleistung folgt aus der
+thermischen Belastung der Komponenten (Tabelle~\ref{tab:thermische_anforderungen}).
+
+\begin{table}[htb]
+  \centering
+  \caption{Thermische Auslegungsgrößen der beiden Kühlkreisläufe}
+  \label{tab:thermische_anforderungen}
+  \begin{tabular}{|l|c|c|}
+    \hline
+    Größe & Kreislauf 1 & Kreislauf 2 \\
+    \hline
+    Gekühlte Komponenten & Motoren HA & Inverter, Motoren VA \\
+    \hline
+    Max. Kühlmitteltemperatur $T_\mathrm{K,max}$ & $90\,^{\circ}\mathrm{C}$ & $60\,^{\circ}\mathrm{C}$ \\
+    \hline
+    Max. Umgebungstemperatur $T_\mathrm{U,max}$ & $40\,^{\circ}\mathrm{C}$ & $40\,^{\circ}\mathrm{C}$ \\
+    \hline
+    Treibende Temperaturdifferenz $T_\mathrm{K,max}-T_\mathrm{U,max}$ & $50\,\mathrm{K}$ & $20\,\mathrm{K}$ \\
+    \hline
+    Abzuführende Verlustleistung $\dot{Q}_\mathrm{V}$ & \textbf{??}\,W & \textbf{??}\,W \\
+    \hline
+  \end{tabular}
+\end{table}
+
+Die Wärmeabgabe des Radiators an die Umgebungsluft ist näherungsweise
+proportional zur Differenz zwischen Kühlmittel-Eintrittstemperatur und
+Lufteintrittstemperatur:
+\begin{equation}
+  \dot{Q}_\mathrm{Rad} \approx \varepsilon \cdot C_\mathrm{min} \cdot
+  \left(T_\mathrm{K,ein} - T_\mathrm{L,ein}\right)
+  \label{eq:radiator}
+\end{equation}
+mit der Effektivität $\varepsilon$ des Wärmetauschers und dem kleineren der
+beiden Wärmekapazitätsströme $C_\mathrm{min}$ (in der Regel der Luftseite). Bei
+hohen Außentemperaturen sinkt die treibende Temperaturdifferenz. Bei
+Kreislauf~2 beträgt sie im Auslegungsfall nur \SI{20}{\kelvin} gegenüber
+\SI{50}{\kelvin} bei Kreislauf~1. Um dieselbe Wärmeleistung abzuführen, ist daher
+ein entsprechend größerer Luftmassenstrom bzw. eine größere Kühlerfläche
+erforderlich. Der Wärmestrom auf der Luftseite ergibt sich analog zu
+Gleichung~\eqref{eq:waermeleistung}:
+\begin{equation}
+  \dot{Q}_\mathrm{Rad} = \dot{m}_\mathrm{L} \cdot c_{p,\mathrm{L}} \cdot
+  \Delta T_\mathrm{L}
+  \label{eq:luftseite}
+\end{equation}
+
+Ziel der thermischen Auslegung ist es, Kühlmittel- und Luftmassenstrom so zu
+bestimmen, dass die zulässigen Bauteiltemperaturen auch unter den definierten
+Worst-Case-Bedingungen nicht überschritten werden.
+
+% --- Bildvorschlag 2 ---
+\begin{figure}[htb]
+  \centering
+  % \includegraphics[width=0.7\textwidth]{bilder/temperaturgrenzen}
+  \fbox{\parbox{0.7\textwidth}{\centering\vspace{2.5cm}Platzhalter: Diagramm der
+  Temperaturniveaus (Umgebung \SI{40}{\celsius}, Grenze Kreislauf 2
+  \SI{60}{\celsius}, Grenze Kreislauf 1 \SI{90}{\celsius}) mit
+  Temperaturdifferenzen\vspace{2.5cm}}}
+  \caption{Zulässige Kühlmitteltemperaturen und verbleibende Temperaturdifferenz zur Umgebung}
+  \label{fig:temperaturgrenzen}
+\end{figure}
+
+
+\section{Randbedingungen des Formula-Student-Fahrzeugs}
+\label{sec:randbedingungen}
+
+Neben den thermischen und konstruktiven Anforderungen sind bei der Entwicklung
+des Kühlsystems die Vorgaben des Formula-Student-Regelwerks einzuhalten. Das
+Regelwerk der Formula Student Germany definiert Anforderungen an das
+Kühlmedium, die Temperaturbeständigkeit, die Dichtheit und die konstruktive
+Ausführung des Kühlsystems~\cite{fsg_rules}. Tabelle~\ref{tab:regeln} fasst die
+für diese Arbeit relevanten Regeln zusammen.
+
+\begin{table}[htb]
+  \centering
+  \caption{Relevante Regelwerksanforderungen an das Kühlsystem}
+  \label{tab:regeln}
+  \begin{tabular}{|l|p{0.78\textwidth}|}
+    \hline
+    Regel & Anforderung \\
+    \hline
+    T7.2.2   & Als Kühlmedium sind ausschließlich Wasser, Luft oder Öl zulässig. \\
+    \hline
+    T7.2.3   & Wassergekühlte Systeme benötigen eine hitzebeständige, starr
+               befestigte Abdeckung (dauerhaft mindestens $100\,^{\circ}\mathrm{C}$);
+               Ausnahme: außenliegende Radnabenmotoren und deren Kühlleitungen. \\
+    \hline
+    T7.2.4   & Das Austreten von Flüssigkeit muss verhindert werden. \\
+    \hline
+    T7.2.6   & Bei vorhandenen Entlüftungen ist ein Auffangbehälter mit mindestens
+               $10\,\%$ des Fluidvolumens oder $100\,\mathrm{ml}$
+               (der größere Wert) erforderlich. \\
+    \hline
+    T7.2.7   & Alle Komponenten des Motor-Kühlsystems inkl. Befestigungen sind für
+               mindestens $100\,^{\circ}\mathrm{C}$ bzw. die maximal zu erwartende
+               Mediumstemperatur auszulegen (der höhere Wert gilt). \\
+    \hline
+    T7.3.5   & Rotierende Komponenten im Stillstand (z.\,B. Kühlerventilatoren)
+               benötigen einen Fingerschutz; Perforationen dürfen das Durchdringen
+               von Objekten ab $12\,\mathrm{mm}$ Durchmesser nicht zulassen. \\
+    \hline
+    T11.11.1 & Die Summe der Nennleistungen aller aktiven Luftfördereinrichtungen
+               (inkl. Kühlerlüfter) darf $500\,\mathrm{W}$ nicht überschreiten. \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\paragraph{Kühlmedium.}
+Nach T7.2.2 sind nur Wasser, Luft oder Öl als Kühlmedium zulässig. Für das
+entwickelte Kühlsystem wird daher destilliertes Wasser verwendet.
+
+\paragraph{Fahrerschutz und Temperaturbeständigkeit.}
+Wassergeführte Systeme müssen nach T7.2.3 mit einer starr befestigten,
+dauerhaft für mindestens \SI{100}{\celsius} ausgelegten Abdeckung versehen
+sein. Ausgenommen sind außenliegende Radnabenmotoren und deren Kühlleitungen.
+Gemäß T7.2.7 müssen zudem alle Komponenten des Motor-Kühlsystems einschließlich
+ihrer Befestigungen (Kühler, Pumpen, Leitungen, Adapter, Anschlüsse) für
+mindestens \SI{100}{\celsius} oder die maximal zu erwartende Mediumstemperatur
+ausgelegt sein, je nachdem, welcher Wert höher ist.
+
+\paragraph{Dichtheit und Entlüftung.}
+T7.2.4 fordert, dass keine Flüssigkeit austreten darf. Die Dichtheit der
+Leitungen, Anschlüsse und Verbindungselemente ist damit eine zentrale
+Konstruktionsanforderung. Bei vorhandenen Entlüftungen schreibt T7.2.6 einen
+Auffangbehälter vor. Das Kühlsystem des RP26E/D ist als geschlossenes System
+ohne Entlüftungsbehälter ausgeführt. Dadurch entfallen zusätzliche Komponenten
+und deren Befestigung, und es wird Gewicht eingespart. Begründung, warum
+keine Entlüftung im Sinne von T7.2.6 vorliegt (siehe Abschnitt
+\ref{sec:entlueftung})
+
+\paragraph{Schutz rotierender Bauteile.}
+Für die Kühlerlüfter ist nach T7.3.5 ein mechanischer Fingerschutz erforderlich,
+der Fingerkräften standhält. Perforierte Materialien sind zulässig, sofern
+Objekte ab \SI{12}{\milli\meter} Durchmesser nicht hindurchgelangen.
+
+\paragraph{Begrenzung der Lüfterleistung.}
+Nach T11.11.1 darf die Summe der Nennleistungen aller aktiven Luftfördereinrichtungen
+\SI{500}{\watt} nicht überschreiten. Die Kühlerlüfter fallen ausdrücklich
+darunter. Der erreichbare Luftmassenstrom nach Gleichung~\eqref{eq:luftseite}
+ist damit nach oben begrenzt. Dies steht im direkten Zielkonflikt zu den
+erhöhten Anforderungen bei hoher Umgebungstemperatur
+(Abschnitt~\ref{sec:thermische_anforderungen}).
+
+\paragraph{Zusammenfassung.}
+Neben den thermischen und hydraulischen Anforderungen bilden die
+Regelwerksvorgaben weitere Randbedingungen. Dichtheit, Temperaturbeständigkeit,
+Schutz bewegter Bauteile und die Begrenzung der Lüfterleistung sind bereits
+in der Konstruktion zu berücksichtigen. Die Ausführung als geschlossenes System
+ohne Entlüftungsbehälter reduziert die Systemmasse, ohne das Regelwerk zu
+verletzen, sofern keine Entlüftung des wasserführenden Systems erforderlich ist.
+
+% --- Bildvorschlag 3 ---
+% Foto/CAD: Fingerschutz am Kühlerlüfter bzw. Abdeckung der Kühlleitungen
+% (zeigt die Umsetzung von T7.2.3 / T7.3.5 im Fahrzeug)
