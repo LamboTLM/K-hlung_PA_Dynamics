@@ -1,4 +1,207 @@
 \chapter{Konstruktionsbegründung}
+\label{chap:konstruktionsbegruendung}
+
+\section{Positionierung von Radiator und Lüfter}
+\label{sec:Positionierung}
+
+Für die Anordnung der Radiatoren am Fahrzeug existieren mehrere Möglichkeiten,
+die jeweils unterschiedliche Kompromisse erfordern. Die Wahl der Position
+beeinflusst die Qualität der Anströmung, die Aerodynamik des Gesamtfahrzeugs,
+die Lage des Schwerpunkts sowie den Konstruktions- und Fertigungsaufwand.
+
+\subsection{Randbedingungen}
+\label{subsec:randbedingungen_position}
+
+Folgende Randbedingungen waren bei der Positionierung zu berücksichtigen:
+
+\begin{itemize}
+    \item \textbf{Anströmung:} Je weiter vorne der Radiator sitzt, desto
+          sauberer ist die anströmende Luft. Gleichzeitig verwirbelt er die
+          Luft für alle dahinterliegenden Bauteile stärker, insbesondere für
+          die Aerodynamik im hinteren Fahrzeugbereich.
+    \item \textbf{Einbauhöhe:} Höhere Positionen ermöglichen in der Regel
+          eine sauberere Anströmung, tiefere Positionen sind hingegen
+          deutlich günstiger für die Schwerpunkthöhe.
+    \item \textbf{Fahrersichtfeld und Driver Fluid Protection:} Nach
+          Regel T0.0.00 dürfen im Sichtfeld des Fahrers keine
+          wasserführenden Schläuche verlaufen. Zusätzlich ist die Driver
+          Fluid Protection (T0.0.0) einzuhalten.
+    \item \textbf{Trägheit:} Massen, die weit von der Hochachse entfernt
+          montiert werden, erhöhen das Trägheitsmoment des Fahrzeugs.
+\end{itemize}
+
+\subsection{Betrachtete Positionsvarianten}
+\label{subsec:positionsvarianten}
+
+In den letzten Jahren haben sich bei den Teams drei grundsätzliche Positionen
+durchgesetzt, die jeweils mehrere Untervarianten aufweisen.
+
+\paragraph{Position im Frontwing.}
+Diese Variante wird beispielsweise vom Team Amberg-Weiden Running Snails
+eingesetzt~\cite{TODO_Quelle_Running_Snails}. Die Radiatoren sind dabei in
+einem neu gestalteten Frontwing untergebracht, und ein Cooling Duct verläuft
+durch den Frontwing. Laut Reglement wird dadurch ein sonst ungenutzter
+Bauraum verwendet, und der Radiator erhält die beste und sauberste
+Anströmung. Nachteilig sind die relativ hohe Schwerpunktlage sowie ein
+erhöhtes Trägheitsmoment des Fahrzeugs, da die Masse weit entfernt vom
+Drehpunkt montiert wird. Auch die Einhaltung der Driver Fluid Protection
+(T0.0.0) ist bei dieser Variante anspruchsvoll.
+
+\paragraph{Position im Seitenkasten.}
+Ein Beispiel für diese Variante ist der RP25e des Dynamics e.V. Die
+Radiatoren werden typischerweise relativ weit hinten im Seitenkasten an den
+Endplates montiert. Das stellt einen guten Kompromiss dar zwischen der
+Frischluft, die den Radiator erreicht, und der Verwirbelung, die andere
+Systeme beeinflussen kann. Die Driver Fluid Protection ist mit mittlerem
+Aufwand lösbar, und der Abstand zur Hochachse ist vergleichsweise gering.
+Herausforderungen liegen in der Anbindung, da die Aerodynamikentwicklung nur
+wenig Bauraum zur Verfügung stellt, sowie in der durch das Reglement stark
+begrenzten vertikalen Bauhöhe. Für diese Position liegen außerdem
+Volumenstromdaten aus den vergangenen Saisons vor.
+
+\paragraph{Position am Fahrzeugheck.}
+Bei dieser Variante wird an der Anti Collision Plate (ACP) eine zusätzliche
+Haube angebracht, deren alleinige Aufgabe die Halterung der Radiatoren ist.
+Hinsichtlich des Bauraums ist dies die freieste Position, da kein anderes
+Subsystem sie mitnutzt. Der natürliche Luftstrom durch den Fahrtwind ist
+hier jedoch nahezu nicht vorhanden, sodass der Einsatz von Lüftern
+unerlässlich ist. Die Driver Fluid Protection lässt sich ohne nennenswerten
+Mehraufwand erfüllen, da Seitenkasten und weitere Aerodynamikkomponenten die
+Schläuche fast vollständig abdecken. Nachteilig ist der Mehraufwand für
+Konstruktion und Fertigung der ein bis zwei Lüfterhauben. Zudem müssen diese
+so ausgelegt sein, dass die ACP jederzeit demontiert werden kann, da dies
+für den Ein- und Ausbau des Akkus zum Laden des Fahrzeugs erforderlich ist.
+Daher ist eine erhöhte Anzahl an Schnellverschlüssen bzw. an schnell
+steckbaren Verbindungen notwendig.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Vergleich der betrachteten Radiatorpositionen}
+    \label{tab:positionsvergleich}
+    \begin{tabular}{@{}p{0.16\textwidth}p{0.38\textwidth}p{0.38\textwidth}@{}}
+        \hline
+        \textbf{Position} & \textbf{Vorteile} & \textbf{Nachteile} \\
+        \hline
+        Frontwing
+            & beste und sauberste Anströmung; nutzt sonst ungenutzten Bauraum
+            & hoher Schwerpunkt; erhöhtes Trägheitsmoment; Driver Fluid
+              Protection anspruchsvoll \\
+        \hline
+        Seitenkasten
+            & guter Kompromiss aus Anströmung und Verwirbelung; geringer
+              Abstand zur Hochachse; Driver Fluid Protection mit mittlerem
+              Aufwand lösbar; Volumenstromdaten vorhanden
+            & wenig Bauraum und begrenzte Bauhöhe; aufwendige Anbindung \\
+        \hline
+        Heck (ACP)
+            & größter Bauraum; Driver Fluid Protection sehr einfach
+            & kaum natürlicher Luftstrom (Lüfter zwingend); Mehraufwand für
+              Lüfterhauben; ACP muss demontierbar bleiben \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Entscheidung}
+\label{subsec:entscheidung_position}
+
+Nach Abwägung aller Einflussfaktoren wurde die Position im Seitenkasten
+gewählt. Um sicherzustellen, dass der benötigte Bauraum zur Verfügung steht
+und die aerodynamischen Nachteile begrenzt bleiben, wurde die Auslegung eng
+mit dem Aerodynamikteam abgestimmt. Die grobe Einbaulage ist in
+Abbildung~\ref{fig:einbaulage_radiator} dargestellt.
+
+% FIGURE-VORSCHLAG A: CAD-Übersicht des Fahrzeugs mit hervorgehobener
+% Radiator-/Lüfterposition im Seitenkasten (Seitenansicht oder Iso-Ansicht).
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=\textwidth]{bilder/einbaulage_radiator}
+    \caption{Grobe Einbaulage von Radiator und Lüfter im Seitenkasten}
+    \label{fig:einbaulage_radiator}
+\end{figure}
+
+\subsection{Umsetzung im Seitenkasten}
+\label{subsec:umsetzung_seitenkasten}
+
+\paragraph{Schrägstellung des Radiators.}
+Die in Kapitel~\ref{chap:UNBEKANNT} festgelegten Radiatoren sind
+breiter als der im Seitenkasten verfügbare Bauraum. Der Radiator wird daher
+in einem Winkel montiert. Der Kompromiss wurde hierbei bewusst zugunsten der
+Aerodynamik gelegt, sodass die Fertigung eines Sonderflügelprofils nicht
+erforderlich ist.
+
+\paragraph{Lüfterhaube.}
+Durch die Schrägstellung gestaltet sich auch die Positionierung der Lüfter
+schwierig. Deshalb wurde eine einfache Haube konstruiert, die es erlaubt, die
+Lüfter in einem gewissen Abstand zum Radiator anzuordnen. Dadurch kann die
+Abluft direkt nach außen und vom Reifen weg geführt werden. Zudem soll der
+an der Fahrzeugaußenseite entstehende Unterdruck genutzt werden, um die
+Durchströmung zu verbessern und den Volumenstrom durch den Radiator zu
+erhöhen.
+
+% FIGURE-VORSCHLAG B: CAD-Schnitt oder Draufsicht des Seitenkastens mit
+% schräg montiertem Radiator, Lüfterhaube und Pfeilen für Zuluft/Abluft.
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=\textwidth]{bilder/radiator_luefterhaube}
+    \caption{Schräg montierter Radiator mit Lüfterhaube im Seitenkasten
+             (Strömungsrichtung der Luft eingezeichnet)}
+    \label{fig:radiator_luefterhaube}
+\end{figure}
+
+\paragraph{Lüfterposition und Finger Guards.}
+Die Lüfterpositionen ergeben sich maßgeblich aus der Lage von Radiator und
+Haube. Gemäß Regel T0.0.0 dürfen sich keine Finger in rotierende
+Teile einführen lassen, sobald der Durchmesser der Öffnungen einen
+bestimmten Wert überschreitet. Zur Erfüllung dieser Regel wurden eigene
+Finger Guards konstruiert und ausgelegt.
+
+% FIGURE-VORSCHLAG C: Foto oder CAD der selbstgebauten Finger Guards am Lüfter.
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.7\textwidth]{bilder/finger_guard}
+    \caption{Selbst konstruierter Finger Guard am Lüfter}
+    \label{fig:finger_guard}
+\end{figure}
+
+\section{Positionierung der Pumpen}
+\label{sec:pumpen_position}
+
+Die Pumpen lassen sich vergleichsweise frei positionieren. Um das Packaging
+zu vereinfachen, wurde entschieden, sie nicht im Fahrzeuginneren
+anzuordnen, sondern in die Seitenkastenprofile zu verlagern. Hierfür wurden
+einfache Halter ausgelegt, die in die Flügelprofile eingeklebt werden und
+die Pumpen allein mittels Kabelbinder fixieren. Diese Lösung ist
+äußerst gewichtssparend, was für diese Komponente aufgrund der
+reglementbedingten Vorgaben ein wesentliches Ziel war.
+
+% FIGURE-VORSCHLAG D: Foto/CAD der in das Seitenkastenprofil eingeklebten
+% Pumpenhalter mit montierter Pumpe.
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.7\textwidth]{bilder/pumpenhalter}
+    \caption{Pumpenhalter im Seitenkastenprofil}
+    \label{fig:pumpenhalter}
+\end{figure}
+
+\section{Sensorhalterungen}
+\label{sec:sensorhalterungen}
+
+Für die Sensoren wurden neue Halterungen konstruiert, die sowohl am
+Prüfstand als auch am Fahrzeug verwendet werden können. Sie wurden aus
+Kostengründen und aus Gründen der Isolation im FDM-Verfahren aus Kunststoff
+gedruckt. Eine erste Version aus SLA-Harz erwies sich als nicht wasserfest
+und wurde unter Last gummiartig weich. Die aktuellen Teile bestehen aus
+einem Spezialfilament (Materialbezeichnung), mit dem diese Probleme
+vollständig beseitigt werden konnten.
+
+% FIGURE-VORSCHLAG E: Foto der FDM-Sensorhalter (ggf. neben dem ersten
+% SLA-Teil zum Vergleich) sowie im eingebauten Zustand am Kühlkreis.
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.7\textwidth]{bilder/sensorhalter}
+    \caption{FDM-gedruckte Sensorhalter für Prüfstand und Fahrzeug}
+    \label{fig:sensorhalter}
+\end{figure}
 
 \section{Entlüftungskonzept}
 \label{sec:entlueftung}
