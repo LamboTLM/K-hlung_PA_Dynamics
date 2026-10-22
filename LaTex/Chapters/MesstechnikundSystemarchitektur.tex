@@ -2,8 +2,10 @@
 
 Um eine fundierte Analyse des Kühlsystems durchzuführen und die theoretischen Modelle zu validieren, ist eine präzise und hochfrequente Datenerfassung unerlässlich. Dieses Kapitel beschreibt die messtechnische Infrastruktur des Fahrzeugs sowie die zugrunde liegende Systemarchitektur. Dabei wird zunächst auf die bereits im Fahrzeug integrierte Bestandssensorik eingegangen, bevor die im Rahmen dieser Arbeit implementierten Erweiterungen zur detaillierten thermischen Überwachung erläutert werden. Ziel ist es, eine lückenlose Messkette abzubilden – von der physikalischen Messgröße über die Signalaufbereitung bis hin zur digitalen Protokollierung im Datenlogger.
 
-\section{Bestandssensorik und Infrastruktur}
+% =====================================================================
+\section{Systemarchitektur und Bestandssensorik}
 \label{sec:bestandssensorik}
+% =====================================================================
 
 Die am Fahrzeug vorhandene elektronische Infrastruktur bildet das Rückgrat der Datenerfassung und Steuerung, auf dem die thermische Analyse dieser Arbeit aufbaut. Ein tiefgreifendes Verständnis der vorhandenen Signalwege ist essenziell, um die Qualität und Aussagekraft der geloggten Daten korrekt einordnen zu können.
 
@@ -14,7 +16,7 @@ Die am Fahrzeug vorhandene elektronische Infrastruktur bildet das Rückgrat der 
     \label{fig:Systemarchtiektur_RP25e}
 \end{figure}
 
-\subsection{Zentrale Steuereinheiten (VCU \& PDU)}
+\subsection{Zentrale Steuereinheiten (VCU und PDU)}
 \label{subsec:vcu_pdu}
 
 Die Steuerung und Energieversorgung des Fahrzeugs wird durch zwei zentrale Einheiten realisiert, die maßgeblich an der Datenerhebung für das Kühlsystem beteiligt sind.
@@ -66,31 +68,11 @@ Die zentrale Einheit zur persistenten Speicherung aller fahrzeugrelevanten Daten
 
 Zur Auswertung der umfangreichen Datensätze wird ein eigens entwickeltes MATLAB-Skript eingesetzt. Dieses ermöglicht es, die Rohdaten zu filtern, physikalische Einheiten zuzuordnen und thermische Zusammenhänge -- wie etwa die Trägheit des Kühlmittels im Verhältnis zu Lastspitzen der Motoren -- zu visualisieren. Erst durch diese automatisierte Aufbereitung lassen sich die im Wettbewerb oder auf dem Prüfstand gewonnenen Daten für die Validierung der Kühlungsauslegung nutzen.
 
-\subsection{Signalaufbereitung mittels Messbrücken}
-\label{subsec:messbruecken}
-
-Da viele physikalische Sensoren -- insbesondere piezoresistive Druckaufnehmer -- auf minimalen Widerstandsänderungen basieren, ist eine direkte Auswertung durch die Analogeingänge der VCU aufgrund des geringen Signal-Rausch-Verhältnisses nicht zielführend. Zur Wandlung dieser Differenzen in ein nutzbares Spannungssignal wird die Wheatstone-Brückenschaltung eingesetzt.
-
-\begin{figure}[htbp]
-    \centering
-    % \includegraphics[width=0.55\textwidth]{pics/wheatstone_bridge.png}
-    \caption{Schaltplan einer Wheatstone-Brückenschaltung zur Wandlung von Widerstandsänderungen in eine proportionale Messspannung $\Delta U$.}
-    \label{fig:wheatstone_bridge}
-\end{figure}
-
-Ein wesentlicher Vorteil dieses differenziellen Messprinzips ist die Kompensation von Störeinflüssen:
-\begin{itemize}
-    \item \textbf{Temperaturkompensation:} Da sich Leitungswiderstände bei Erwärmung in allen Brückenzweigen ähnlich ändern, heben sich diese Fehler gegenseitig auf.
-    \item \textbf{Nullpunktstabilität:} Die Brücke erlaubt eine hohe Auflösung um den Arbeitspunkt, was besonders bei der Detektion feiner Druckunterschiede im Kühlkreislauf essenziell ist.
-\end{itemize}
-
-Die Anzahl der verfügbaren Messbrücken ist durch den Bauraum und die Komplexität der Signalverstärkung begrenzt, weshalb eine gezielte Priorisierung der thermisch kritischsten Messstellen erforderlich ist.
-
-\section{Sensorik der Antriebseinheiten}
-\label{sec:antriebssensorik}
+\subsection{Sensorik der Antriebskomponenten}
+\label{subsec:antriebssensorik}
+\label{sec:motor}% Alias, falls noch irgendwo referenziert
 
 \paragraph{Temperaturüberwachung der Antriebsmotoren}
-\label{sec:motor}
 
 Jeder Antriebsmotor verfügt über einen in die Statorwicklung eingebetteten PT1000-Widerstandsthermometer. Dieser misst die Wicklungstemperatur direkt an der thermisch kritischsten Stelle des Motors. Das physikalische Messprinzip wird in Abschnitt~\ref{subsec:pt1000} detailliert beschrieben, da es identisch mit den zusätzlich verbauten Kühlmitteltemperatursensoren ist.
 
@@ -123,12 +105,34 @@ Im Fahrzeug sind zwei Kühlmittelpumpen verbaut, die die beiden Kühlkreisläufe
     \label{fig:pumpen_einbau}
 \end{figure}
 
-\section{Projektspezifische Erweiterung der Messtechnik}
+% =====================================================================
+\section{Erweiterung der Messtechnik}
 \label{sec:erweiterung}
+% =====================================================================
 
 Die in Abschnitt~\ref{sec:bestandssensorik} beschriebene Bestandssensorik liefert zwar eine solide Ausgangsbasis, lässt jedoch für eine vollständige thermische Bilanzierung des Kühlsystems wesentliche Messgrößen offen. Im Rahmen dieser Arbeit wird die Messtechnik daher gezielt um zwei Sensortypen erweitert: einen Volumenstromsensor sowie zusätzliche Temperaturmessstellen
 
-\subsection{Volumenstrom-Sensor}
+\subsection{Signalaufbereitung mittels Messbrücken}
+\label{subsec:messbruecken}
+
+Da viele physikalische Sensoren -- insbesondere piezoresistive Druckaufnehmer -- auf minimalen Widerstandsänderungen basieren, ist eine direkte Auswertung durch die Analogeingänge der VCU aufgrund des geringen Signal-Rausch-Verhältnisses nicht zielführend. Zur Wandlung dieser Differenzen in ein nutzbares Spannungssignal wird die Wheatstone-Brückenschaltung eingesetzt.
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.55\textwidth]{pics/wheatstone_bridge.png}
+    \caption{Schaltplan einer Wheatstone-Brückenschaltung zur Wandlung von Widerstandsänderungen in eine proportionale Messspannung $\Delta U$.}
+    \label{fig:wheatstone_bridge}
+\end{figure}
+
+Ein wesentlicher Vorteil dieses differenziellen Messprinzips ist die Kompensation von Störeinflüssen:
+\begin{itemize}
+    \item \textbf{Temperaturkompensation:} Da sich Leitungswiderstände bei Erwärmung in allen Brückenzweigen ähnlich ändern, heben sich diese Fehler gegenseitig auf.
+    \item \textbf{Nullpunktstabilität:} Die Brücke erlaubt eine hohe Auflösung um den Arbeitspunkt, was besonders bei der Detektion feiner Druckunterschiede im Kühlkreislauf essenziell ist.
+\end{itemize}
+
+Die Anzahl der verfügbaren Messbrücken ist durch den Bauraum und die Komplexität der Signalverstärkung begrenzt, weshalb eine gezielte Priorisierung der thermisch kritischsten Messstellen erforderlich ist.
+
+\subsection{Volumenstromsensor (Turbinen-Durchflusssensor)}
 \label{subsec:volumenstrom}
 
 Zur präzisen Bestimmung des Volumenstroms -- und damit zur Berechnung des Massenstroms, der für die thermische Leistungsbilanz des Kühlkreislaufs essenziell ist -- wird ein Turbinen-Durchflusssensor eingesetzt. Abbildung~\ref{fig:durchfluss_sensor_foto} zeigt den verbauten Sensor, Abbildung~\ref{fig:durchfluss_sensor_prinzip} erläutert das zugrunde liegende Wirkprinzip.
@@ -163,7 +167,7 @@ Zur Erfassung der Kühlmitteltemperatur an kritischen Stellen des Kreislaufs -- 
 
 Das Messprinzip basiert auf dem positiven Temperaturkoeffizienten (PTC) von Platin: Mit steigender Temperatur erhöht sich der elektrische Widerstand der Platinwicklung nahezu linear. Ein PT1000 besitzt bei $0\,^\circ\text{C}$ einen Nennwiderstand von $1000\,\Omega$. Die Widerstandsänderung wird über eine Wheatstone-Messbrücke in der VCU ausgewertet und in einen kalibrierten Temperaturwert umgerechnet. Platin zeichnet sich dabei durch eine exzellente Langzeitstabilität aus, was wiederholte Messungen unter Wettbewerbsbedingungen zuverlässig reproduzierbar macht.
 
-\subsection{Differenzdrucksensor (Piezoresistiv)}
+\subsection{Differenzdrucksensor (piezoresistiv)}
 \label{subsec:drucksensor}
 
 Zur Bestimmung von Druckverlusten innerhalb des Kühlkreislaufs -- beispielsweise über dem Radiator -- werden piezoresistive Differenzdrucksensoren eingesetzt. Im Gegensatz zu Absolutdrucksensoren verfügen diese über zwei Druckanschlüsse ($P_1$ und $P_2$), sodass direkt die Druckdifferenz $\Delta p = P_1 - P_2$ gemessen wird.
@@ -177,14 +181,13 @@ Zur Bestimmung von Druckverlusten innerhalb des Kühlkreislaufs -- beispielsweis
 
 Das Herzstück des Sensors bildet eine dünne Siliziummembran. Eine anliegende Druckdifferenz führt zu deren mechanischer Verformung, wodurch sich der elektrische Widerstand der aufgebrachten piezoresistiven Elemente ändert. Diese sind in einer Wheatstone-Messbrücke verschaltet, die die Dehnung in eine proportionale Ausgangsspannung umwandelt. Zum Schutz der empfindlichen Halbleiterstruktur vor dem Kühlmedium ist das Sensorelement mit einem chemisch inerten Silikon-Gel vergossen, das den hydraulischen Druck verlustfrei überträgt und die Elektronik gleichzeitig isoliert.
 
-% -------------------------------------------------------
-\section{Positionierung und Validierung der Sensorik}
-\label{sec:validierung}
+% =====================================================================
+\section{Einsatzkonzept und Ausbaustrategie}
+\label{sec:einsatzkonzept}
+% =====================================================================
 
-\subsection{Sensorik und Validierung}
-\label{subsec:sensorik}
-
-\subsubsection{Volumenstromsensor}
+\subsection{Volumenstromsensor}
+\label{subsec:einsatz_volumenstrom}
 
 Der Volumenstromsensor dient dazu, im Stand bzw. im geschlossenen
 Kühlkreislauf den Volumenstrom zu bestimmen. Anhand der bekannten
@@ -193,7 +196,8 @@ werden, ob dieser Volumenstrom auch in anderen Betriebssituationen erreicht
 wird. Treten Abweichungen auf, lassen sich deren Ursachen und Randbedingungen
 eingrenzen.
 
-\subsubsection{Temperatursensorik und Ausbaustrategie}
+\subsection{Temperatursensorik und Ausbaustrategie}
+\label{subsec:ausbaustrategie}
 
 Die Temperatursensorik wurde im Verlauf der Arbeit entwickelt. Aufgrund der
 geringen Verfügbarkeit der WPMD-Platinen konnte bisher nur ein Radpaket
@@ -215,9 +219,15 @@ Die erarbeitete Strategie gliedert sich in drei Stufen:
           Radiatoren. Zusätzliche Sensoren erfassen die Lufttemperatur.
 \end{description}
 
-\subsubsection{Validierung der Sensorik}
+% =====================================================================
+\section{Validierung der Sensorik}
+\label{sec:validierung}
+% =====================================================================
 
-\paragraph{Volumenstrom.} Der Sensor wurde durch Auffangen des Förderstroms
+\subsection{Volumenstromsensor}
+\label{subsec:val_volumenstrom}
+
+Der Sensor wurde durch Auffangen des Förderstroms
 in einem Behälter überprüft. In $t = 60\,\mathrm{s}$ wurden
 $V = 21\,\mathrm{l}$ gefördert. Daraus ergibt sich der Referenzvolumenstrom
 \begin{equation}
@@ -236,13 +246,16 @@ wurde während des Versuchs eine Pumpenstromaufnahme von $3\,\mathrm{A}$
 gemessen, die als Referenz für den weiteren Betrieb dient. Die Unsicherheit
 der Referenzmessung aus Zeitnahme und Volumenablesung beträgt $2{,}5\,\%$.
 
-\paragraph{Temperatur: Versuchsdurchführung.} Alle PT100-Sensoren wurden
+\subsection{Temperatursensoren: Genauigkeit (Siedetest)}
+\label{subsec:val_siedetest}
+
+\paragraph{Versuchsdurchführung.} Alle PT100-Sensoren wurden
 gleichzeitig in siedendes Wasser getaucht. Nach Einstellen eines stationären
 Plateaus wurde über $t = 150\,\mathrm{s}$ per Handnotiz aufgezeichnet. Die Referenztemperatur folgt aus dem
 Luftdruck am Messtag ($p = 964\,\mathrm{hPa}$) zu
 $T_\mathrm{ref} = 98{,}61\,^\circ\mathrm{C}$.
 
-\paragraph{Temperatur: Auswertung.} Je Sensor $i$ wird der Mittelwert
+\paragraph{Auswertung.} Je Sensor $i$ wird der Mittelwert
 $\bar{T}_i$ im Plateau gebildet. Die Abweichung zur Referenz ist
 $\Delta T_i = \bar{T}_i - T_\mathrm{ref}$. Als Streuung zwischen den
 Sensoren dient die Standardabweichung der $\bar{T}_i$.
@@ -264,7 +277,7 @@ Sensoren dient die Standardabweichung der $\bar{T}_i$.
     \end{tabular}
 \end{table}
 
-\paragraph{Temperatur: Bewertung.} Die maximale Abweichung beträgt
+\paragraph{Bewertung.} Die maximale Abweichung beträgt
 $0{,}20\,\mathrm{K}$, die Streuung zwischen den Sensoren
 $0{,}15\,\mathrm{K}$. Zum Vergleich: Die Toleranz nach DIN EN 60751 beträgt
 bei $100\,^\circ\mathrm{C}$ für Klasse~A $0{,}35\,\mathrm{K}$ und für
@@ -272,7 +285,10 @@ Klasse~B $0{,}8\,\mathrm{K}$. Der Test erfolgte als Einpunktprüfung bei etwa
 $100\,^\circ\mathrm{C}$, eine Aussage über den gesamten Betriebsbereich ist
 daraus nicht ableitbar.
 
-\paragraph{Temperatur: Zeitkonstante.} Zur Bestimmung der Zeitkonstante
+\subsection{Temperatursensoren: Zeitkonstante}
+\label{subsec:val_zeitkonstante}
+
+Zur Bestimmung der Zeitkonstante
 $\tau$ wird zunächst vor dem Versuch die relevante Schwellentemperatur
 berechnet. Dazu werden der Anfangswert $T_0$ (Sensor in Raumluft) und der
 Endwert $T_\infty$ (gerührtes siedendes Wasser) herangezogen. Für ein
@@ -309,7 +325,7 @@ Zeitkonstante $\tau$ ist die Zeit zwischen dem Eintauchen und dem erstmaligen Er
     \end{tabular}
 \end{table}
 
-\paragraph{Temperatur: Bewertung der Zeitkonstante.} Erwartet wird ein
+\paragraph{Bewertung.} Erwartet wird ein
 Verhalten wie bei einem Verzögerungsglied 1.~Ordnung. Die gemessenen
 Zeitkonstanten liegen zwischen $3{,}0\,\mathrm{s}$ und $4{,}2\,\mathrm{s}$
 und damit in der für Einschraub-Mantelfühler typischen Größenordnung. Bei
@@ -319,10 +335,12 @@ $0{,}5\,\mathrm{K/s}$ und $\tau = 4{,}2\,\mathrm{s}$ also
 $2{,}1\,\mathrm{K}$. Die Werte gelten für die Umströmung im Wasserbad
 und können im Kühlkreis mit anderer Strömungsgeschwindigkeit abweichen, sollen aber als Orientierungshilfe für das erstellen eines Messplans gelten. 
 
-\section{Ausarbeitung eines Testplanes}
-\label{sec:Testplanung}
+% =====================================================================
+\chapter{Testplanung}
+\label{chap:Testplanung}
+% =====================================================================
 
-Neben der bisherigen Validierung der Messinstrumente (vgl.~Abschnitt~\ref{subsec:sensorik})
+Neben der bisherigen Validierung der Messinstrumente (vgl.~Abschnitt~\ref{sec:validierung})
 soll die Kühlung des Antriebsstrangs unter definierten Bedingungen vermessen
 werden. Dafür sind zwei Testumgebungen vorgesehen: der Motorprüfstand zur
 Erstellung von Wirkungsgradkennfeld und Wärmestrom sowie das Fahrzeug zur
@@ -331,7 +349,7 @@ Validierung unter realen Lastkollektiven.
 % TODO: Satz ergänzen, was genau mit den Vermessungen erreicht werden soll
 % (Der Ursprungstext bricht hier ab: "Neben der bisherigen Validierung ... soll")
 
-\subsection{Motorprüfstand}
+\section{Versuche am Motorprüfstand}
 \label{subsec:testplan_pruefstand}
 
 Der in Kapitel~\ref{TODO_Kapitel_Motorpruefstand} beschriebene Motorprüfstand
@@ -339,7 +357,7 @@ erlaubt es, gezielt Lastpunkte anzufahren, solange Motor und Lastmaschine
 diese erzeugen und halten können. Der Fokus liegt auf der Erstellung eines
 Wirkungsgradkennfelds und der Vermessung des abgegebenen Wärmestroms.
 
-\subsubsection{Messraster}
+\subsection{Messraster}
 
 Hierfür wurde ein Messraster aus anzufahrenden Betriebspunkten festgelegt.
 Der Betriebsbereich des Motors reicht von \SI{0}{} bis
@@ -375,7 +393,7 @@ Kühlungsauslegung nicht über eine relevante Dauer maßgeblich.
     \label{fig:messraster}
 \end{figure}
 
-\subsubsection{Erweiterungsmöglichkeiten}
+\subsection{Erweiterungsmöglichkeiten}
 
 Das Raster kann im weiteren Verlauf erweitert werden, insbesondere wenn mehr
 Prüfstandszeit zur Verfügung steht. Für spätere Versuche ist ein nicht
@@ -383,7 +401,7 @@ Prüfstandszeit zur Verfügung steht. Für spätere Versuche ist ein nicht
 erfasst werden, um die Grenzen von Motor und Leistungselektronik zu bestimmen,
 auch wenn diese für die Kühlungsauslegung zunächst nicht maßgeblich sind.
 
-\subsection{Fahrzeugversuche}
+\section{Fahrzeugversuche}
 \label{subsec:testplan_fahrzeug}
 
 Die Messungen im Fahrzeug erfolgen unter vergleichbaren Randbedingungen. Dabei
@@ -392,7 +410,7 @@ Prüfstand und Fahrzeug möglich ist. Die Stärke der Fahrzeugversuche liegt in
 der Validierung eines realen Lastkollektivs bei freier Fahrt auf dem Testgelände
 sowie in der abschließenden Validierung der Kühlungsauslegung.
 
-\subsubsection{Fahrmanöver}
+\subsection{Fahrmanöver}
 
 Zusätzlich werden Fahrmanöver festgelegt, die auch künftig eine vergleichbare
 Basis bieten:
@@ -429,7 +447,7 @@ Geschwindigkeiten ist offen, ob dies erreichbar ist.
 %    \end{tabular}
 %\end{table}
 
-\subsubsection{Testgelände und Randbedingungen}
+\subsection{Testgelände und Randbedingungen}
 
 Für die Versuche wurde der Schaeffler-Testplatz mit einer Länge von
 \SI{2}{km} angefragt. Die Außentemperatur wird zu jedem Versuch protokolliert,
@@ -440,6 +458,3 @@ Regelung oder Korrektur ist dafür nicht vorgesehen.
 % Manövern (Beschleunigungsstrecke, Skidpad, Double-Lane-Change-Gasse).
 % FIGURE-VORSCHLAG 15: Schematischer Temperaturverlauf über der Zeit bei konstanter
 % Geschwindigkeit mit Markierung "thermisch stabil erreicht" bzw. "nicht erreicht".
-
-
-
