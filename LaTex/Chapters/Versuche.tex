@@ -1,0 +1,337 @@
+% =====================================================================
+\chapter{Versuche}
+\label{chap:versuche}
+% =====================================================================
+
+Neben der bisherigen Validierung der Messinstrumente (vgl.~Abschnitt~\ref{sec:validierung})
+soll die Kühlung des Antriebsstrangs unter definierten Bedingungen vermessen
+werden. Dafür sind zwei Testumgebungen vorgesehen: der Motorprüfstand zur
+Erstellung von Wirkungsgradkennfeld und Wärmestrom sowie das Fahrzeug zur
+Validierung unter realen Lastkollektiven.
+
+% TODO: Satz ergänzen, was genau mit den Vermessungen erreicht werden soll
+% (Der Ursprungstext bricht hier ab: "Neben der bisherigen Validierung ... soll")
+
+% NEU: Überleitung, damit der Aufbau des Kapitels erkennbar ist
+Dieses Kapitel fasst die Versuche zusammen. Die Abschnitte~\ref{subsec:testplan_fahrzeug}
+und~\ref{subsec:testplan_pruefstand} beschreiben die Testplanung für Fahrzeug und
+Motorprüfstand. Abschnitt~\ref{sec:durchfuehrung} dokumentiert die Durchführung am
+Motorprüfstand einschließlich des Schadensfalls und seiner Analyse.
+Abschnitt~\ref{sec:fazit_pruefstand} bewertet die Ergebnisse.
+
+% =====================================================================
+\section{Testplanung Fahrzeug}
+\label{subsec:testplan_fahrzeug}
+% =====================================================================
+
+Die Messungen im Fahrzeug erfolgen unter vergleichbaren Randbedingungen. Dabei
+werden Betriebspunkte bewusst so gewählt, dass ein Vergleich zwischen
+Prüfstand und Fahrzeug möglich ist. Die Stärke der Fahrzeugversuche liegt in
+der Validierung eines realen Lastkollektivs bei freier Fahrt auf dem Testgelände
+sowie in der abschließenden Validierung der Kühlungsauslegung.
+
+\subsection{Fahrmanöver}
+
+Zusätzlich werden Fahrmanöver festgelegt, die auch künftig eine vergleichbare
+Basis bieten:
+
+\begin{itemize}
+    \item Acceleration,
+    \item Skidpad bzw.\ quasistatische Kreisfahrt,
+    \item genormter Double Lane Change~\cite{TODO_Norm_Double_Lane_Change},
+    \item stationäre Geradeausfahrt bei mehreren Geschwindigkeiten.
+\end{itemize}
+
+Die stationäre Geradeausfahrt ist besonders relevant, da hierbei auch der
+Volumenstrom an den Radiatoren ermittelt werden kann. Die Geschwindigkeiten
+sind betragsmäßig nicht entscheidend. Gewählt wurden \SI{15}{}, \SI{30}{},
+\SI{50}{}, \SI{75}{} und \SI{100}{km/h}. Der Zustand soll jeweils gehalten
+werden, bis sich ein thermisch stabiler Zustand einstellt, bzw.\ es soll
+geprüft werden, ob sich überhaupt einer einstellt. Insbesondere bei hohen
+Geschwindigkeiten ist offen, ob dies erreichbar ist.
+
+%\begin{table}[htbp]
+%    \centering
+%    \caption{Geplante Fahrmanöver und Zweck der Messung}
+%    \label{tab:fahrmanoever}
+%    \begin{tabular}{p{4.5cm} p{9cm}}
+%        \toprule
+%        Manöver & Zweck \\
+%        \midrule
+%        Acceleration & TODO \\
+%        Skidpad / Kreisfahrt & TODO \\
+%        Double Lane Change & TODO \\
+%        Stationäre Geradeausfahrt & Thermische Stabilität, Volumenstrom an den Radiatoren \\
+%        Freie Fahrt (Testgelände) & Validierung des realen Lastkollektivs und der Kühlungsauslegung \\
+%        \bottomrule
+%    \end{tabular}
+%\end{table}
+
+\subsection{Testgelände und Randbedingungen}
+
+Für die Versuche wurde der Schaeffler-Testplatz mit einer Länge von
+\SI{2}{km} angefragt. Die Außentemperatur wird zu jedem Versuch protokolliert,
+um die Vergleichbarkeit über verschiedene Testtage zu gewährleisten. Eine
+Regelung oder Korrektur ist dafür nicht vorgesehen.
+
+% FIGURE-VORSCHLAG 14: Skizze/Luftbild des Testgeländes mit eingezeichneten
+% Manövern (Beschleunigungsstrecke, Skidpad, Double-Lane-Change-Gasse).
+% FIGURE-VORSCHLAG 15: Schematischer Temperaturverlauf über der Zeit bei konstanter
+% Geschwindigkeit mit Markierung "thermisch stabil erreicht" bzw. "nicht erreicht".
+
+% =====================================================================
+\section{Testplanung Motorprüfstand}
+\label{subsec:testplan_pruefstand}
+% =====================================================================
+
+Der in Abschnitt~\ref{sec:pruefstandsaufbau} beschriebene Motorprüfstand
+erlaubt es, gezielt Lastpunkte anzufahren, solange Motor und Lastmaschine
+diese erzeugen und halten können. Der Fokus liegt auf der Erstellung eines
+Wirkungsgradkennfelds und der Vermessung des abgegebenen Wärmestroms.
+
+\subsection{Messraster}
+
+Hierfür wurde ein Messraster aus anzufahrenden Betriebspunkten festgelegt.
+Der Betriebsbereich des Motors reicht von \SI{0}{} bis
+\SI{18000}{min^{-1}} und von \SI{0}{} bis \SI{28}{Nm}. Eine genaue
+Bestimmung der Messdauer ist derzeit nicht möglich, da unbekannt ist, wie
+lange ein Lastpunkt gehalten werden muss, bis sich ein stationärer thermischer
+Zustand einstellt. Als erste Schätzung wird eine mittlere Haltedauer von
+\SI{90}{s} je Punkt angesetzt. Bei einer vorgesehenen Gesamtmessdauer von
+etwa \SI{2}{h} ergeben sich damit rund 80 Messpunkte:
+\begin{equation}
+    N = \frac{t_\mathrm{ges}}{t_\mathrm{Punkt}}
+      = \frac{\SI{120}{min}}{\SI{1.5}{min}} = 80 .
+\end{equation}
+Gewählt wurde daher ein Raster aus $16 \times 5$ Punkten (Drehzahl $\times$
+Drehmoment) im Bereich von \SI{0}{} bis \SI{16000}{min^{-1}} und bis
+\SI{25}{Nm}.
+
+Das Raster ist bewusst in den niedrigeren Lastbereich verschoben. Reale
+Fahrsituationen bewegen sich fast ausschließlich dort. Hohe Drehmomente
+und hohe Drehzahlen entfallen zudem aus folgenden Gründen: Aufgrund der
+Leistungsbegrenzung des Motors außerhalb des \textit{TODO} können sie weder
+von Motor noch von Lastmaschine erreicht oder gehalten werden. Außerdem
+liegen sie im Fahrbetrieb nur als kurze Spitzen an und sind für die
+Kühlungsauslegung nicht über eine relevante Dauer maßgeblich.
+
+% FIGURE-VORSCHLAG 13: Messraster (16x5) als Punkte im Drehzahl-Drehmoment-Diagramm,
+% hinterlegt mit der Volllastkurve des Motors und dem Betriebsbereich der Lastmaschine.
+% Zeigt direkt, welcher Bereich abgedeckt ist und welcher bewusst entfällt.
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\textwidth]{bilder/messraster_pruefstand}
+    \caption{Messraster auf dem Motorprüfstand im Betriebsbereich des Motors}
+    \label{fig:messraster}
+\end{figure}
+
+\subsection{Erweiterungsmöglichkeiten}
+
+Das Raster kann im weiteren Verlauf erweitert werden, insbesondere wenn mehr
+Prüfstandszeit zur Verfügung steht. Für spätere Versuche ist ein nicht
+äquidistantes Raster vorgesehen. Zudem sollten die Randpunkte des Betriebsbereichs
+erfasst werden, um die Grenzen von Motor und Leistungselektronik zu bestimmen,
+auch wenn diese für die Kühlungsauslegung zunächst nicht maßgeblich sind.
+
+% =====================================================================
+\section{Durchführung am Motorprüfstand}
+\label{sec:durchfuehrung}
+% =====================================================================
+
+Dieser Abschnitt dokumentiert die Durchführung der Messungen am Motorprüfstand. Der Schwerpunkt liegt auf dem Aufbau und der Inbetriebnahme der Messtechnik, den dabei aufgetretenen Problemen sowie dem Schadensfall am Prüfstandsmotor und dessen Analyse. Abschließend werden die Ergebnisse bewertet und das weitere Vorgehen beschrieben (Abschnitt~\ref{sec:fazit_pruefstand}).
+
+\subsection{Prüfstandsaufbau und Messtechnik}
+\label{sec:pruefstandsaufbau}
+
+Am Motorprüfstand kam dieselbe Messtechnik zum Einsatz, die auch im Fahrzeug verwendet werden soll. Konkret wurden vier Temperatursensoren sowie ein manuell auszulesender Volumenstromsensor verbaut (vgl.\ Abschnitt~\ref{sec:erweiterung}). Die Positionen der Sensoren sind in Abbildung~\ref{fig:pruefstand_sensorik} dargestellt.
+
+% FIGURE-VORSCHLAG: Gesamtübersicht des Prüfaufbaus (Motor, Lastmaschine, Adapterwelle, Kühlkreislauf, Regatron-Netzteil)
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.85\textwidth]{pics/pruefstand_uebersicht.jpg}
+    \caption{Übersicht des Prüfaufbaus am Motorprüfstand}
+    \label{fig:pruefstand_uebersicht}
+\end{figure}
+
+% FIGURE-VORSCHLAG: Nahaufnahme der montierten Temperatursensoren und des Volumenstromsensors am Kühlkreislauf
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.7\textwidth]{pics/pruefstand_sensorik.jpg}
+    \caption{Am Prüfstand verbaute Temperatur- und Volumenstromsensorik: Positionen der vier Temperatursensoren ergänzen}
+    \label{fig:pruefstand_sensorik}
+\end{figure}
+
+\subsection{Inbetriebnahme des Prüfstands}
+\label{sec:inbetriebnahme}
+
+\subsubsection{Zeitliche Randbedingungen}
+\label{subsec:zeitliche_randbedingungen}
+
+Die Einrichtung des Prüfstands nahm einen großen Teil der verfügbaren Zeit in Anspruch. Der Grundaufbau war zwar bereits vorhanden, jedoch wies die Adapterwelle einen Defekt auf. Von den zwei Wochen Testzeit, die zur Verfügung gestellt wurden, wurde daher eine Woche mit dem Warten auf Ersatz verbracht (Abbildung~\ref{fig:adapterwelle}). Da der Prüfstand zudem von mehreren Parteien genutzt wurde, mussten die Testpläne nahezu täglich reduziert werden.
+
+% FIGURE-VORSCHLAG: Defekte Adapterwelle
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.6\textwidth]{pics/adapterwelle_defekt.jpg}
+    \caption{Defekte Adapterwelle des Prüfstands}
+    \label{fig:adapterwelle}
+\end{figure}
+
+\subsubsection{Grundlegende Vermessung und Parametrierung}
+\label{subsec:grundvermessung}
+
+Nach dem Austausch der Adapterwelle konnten die ersten Messungen gestartet werden. Dabei handelte es sich zunächst um grundlegende Vermessungen des Motors. Hierbei wurden zahlreiche Parameter der Leistungselektronik bestimmt bzw.\ in Absprache mit der Firma Unitek kalibriert. Parallel erfolgte die Einrichtung der Messtechnik.
+
+\subsubsection{Probleme bei der Integration der Messtechnik}
+\label{subsec:integrationsprobleme}
+
+Bei der Einrichtung traten mehrere Probleme auf, die die Messungen erheblich verzögerten:
+
+\begin{itemize}
+    \item \textbf{CAN-Kommunikation des WPMD:} Die Software für die CAN-Implementierung des WPMD musste überarbeitet werden, da dieser anfangs nicht die korrekten Signale senden konnte.
+    \item \textbf{Einbindung in das Logging:} Die Integration der Signale in das bestehende Logging erwies sich als aufwendig. Insbesondere die Anbindung des Eingangs zum Logger am Regatron-Netzteil, über das am Prüfstand die Datenerfassung läuft, musste mühsam geklärt werden.
+    \item \textbf{Elektromagnetische Verträglichkeit (EMV):} Eine hohe EMV-Belastung erschwerte eine saubere Messung. In frühen Testläufen fiel zudem eine WPMD-Platine aus (Abbildung~\ref{fig:wpmd_defekt}). Ein Zusammenhang mit der EMV-Belastung wird mit hoher Wahrscheinlichkeit vermutet, konnte aber nicht abschließend belegt werden.
+\end{itemize}
+
+Diese Punkte verzögerten die Messergebnisse deutlich und erschwerten die saubere Durchführung der Messreihen.
+
+% FIGURE-VORSCHLAG: Ausgefallene WPMD-Platine
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.6\textwidth]{pics/wpmd_defekt.jpg}
+    \caption{Ausgefallene WPMD-Platine}
+    \label{fig:wpmd_defekt}
+\end{figure}
+
+\subsection{Schadensfall im Leerlaufversuch}
+\label{sec:schadensfall}
+
+\subsubsection{Ablauf}
+\label{subsec:schadensablauf}
+
+Nachdem eine Messung möglich war, wurden die letzten Parameter der Leistungselektronik eingestellt und die Messung gestartet. Hierfür wurde ein Leerlaufversuch über \SI{5}{min} gefahren, bei dem Motor und Inverter eingeschaltet waren, jedoch kein Drehmoment gestellt wurde. Da zu diesem Zeitpunkt die übrigen Messinstrumente vorbereitet wurden, wurde die Motortemperatur nicht beobachtet.
+
+Während des Versuchs trat plötzlich starke Rauchentwicklung am Motor auf. Der Prüfstandsantrieb wurde innerhalb von ca.\ \SI{10}{s} nach Beginn der Rauchentwicklung abgeschaltet. % TODO: Original "Drehzahl geber" -- gemeint: drehzahlgebende Lastmaschine?
+Ein unmittelbares Auslesen der Temperatursensorik ergab eine Temperatur von über $150\,^\circ\mathrm{C}$ (welcher Sensor / Messstelle).
+
+Die Analyse unmittelbar im Anschluss ergab:
+\begin{itemize}
+    \item Die Kühlung des Motors war eingeschaltet und in Betrieb.
+    \item Der Motor bzw.\ der Inverter lieferte zu diesem Zeitpunkt weder im motorischen noch im generatorischen Betrieb ein Drehmoment.
+    \item Es wurden keine nennenswerten Ströme von und zum Motor gemessen.
+\end{itemize}
+
+\subsubsection{Schadensbild}
+\label{subsec:schadensbild}
+
+Der Motor wurde unmittelbar vom Prüfstand demontiert und zur weiteren Untersuchung in das Dynamics-Labor gebracht. Nach dem Zerlegen zeigte sich ein eindeutiges Schadensbild: Das Harz der Vergussfüllung war bereits geschmolzen, und die Kupferwicklungen im Stator waren durch den Rotor irreparabel beschädigt. Eine Widerstandsmessung zwischen den Phasen U, V und W ergab sehr niedrige Widerstandswerte. Der Motor ist damit irreparabel beschädigt.
+
+% FIGURE-VORSCHLAG: Demontierter Motor, Stator mit geschmolzenem Harz und beschädigten Wicklungen
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\textwidth]{pics/motor_schaden_stator.jpg}
+    \caption{Stator des Prüfstandsmotors nach dem Schadensfall: geschmolzenes Vergussharz und beschädigte Kupferwicklungen}
+    \label{fig:schaden_stator}
+\end{figure}
+
+% FIGURE-VORSCHLAG: Rotor mit Kontaktspuren / Lager mit Statormaterial
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\textwidth]{pics/motor_schaden_rotor_lager.jpg}
+    \caption{Rotor und Lager des Prüfstandsmotors nach dem Schadensfall}
+    \label{fig:schaden_rotor_lager}
+\end{figure}
+
+% FIGURE-VORSCHLAG (Datenplot, MATLAB): Temperaturverlauf der Sensoren über der Zeit bis zum Abschalten
+% mit Markierung "Beginn Rauchentwicklung" und "Abschaltung". Belegt die Aussage ">150 °C" mit Messdaten.
+
+\subsection{Ursachenanalyse}
+\label{sec:ursachenanalyse}
+
+Eine eindeutige Ursache konnte nicht ermittelt werden, da bei dem vorliegenden Schadensniveau nicht unterscheidbar ist, was Ursache und was Folge des Schadens ist. In den folgenden Wochen zeichneten sich mehrere Theorien ab, von denen keine vollständig bewiesen oder widerlegt werden konnte. Sie werden nachfolgend dargestellt und in Tabelle~\ref{tab:hypothesen} zusammengefasst.
+
+\subsubsection{Mechanisches Versagen der Motorlager}
+\label{subsec:hyp_lager_mech}
+
+Denkbar ist, dass die Motorlager nach einer gewissen Laufzeit dem Rotor zu viel Bewegung ermöglichten, sodass dieser an der Statorinnenseite schleifen konnte. Dagegen spricht, dass die Lager nach der Demontage kein großes Spiel aufwiesen. Sie waren allerdings mit abgeschmolzenem Statormaterial gefüllt. Zudem konnten sie nicht zerstörungsfrei demontiert werden, wodurch mögliche Fehler verdeckt worden sein können.
+
+\subsubsection{Thermisches Versagen der Lager}
+\label{subsec:hyp_lager_therm}
+
+Im Normalfall befinden sich die vorderen Getriebelager direkt an den Radträgern bzw.\ in deren Ölbad und werden dadurch gekühlt. Dies erklärt allerdings nicht, warum das hintere Lager überhitzen sollte. Dieses weist zwar einen größeren Abstand zu den Kupferwicklungen auf, der Unterschied ist jedoch nicht dramatisch. Ein kombinatorischer Fehler käme in Betracht: Das Lager fällt aus und erzeugt dabei extrem viel Wärme. Sobald das Harz zersetzt wird, lagern sich die Rückstände zwischen Stator und Rotor ab und verursachen zusätzliche Reibung. Für diese Theorie existiert kein Beweis, sie stellt eine reine Vermutung dar.
+
+\subsubsection{Wirbelströme im Motor}
+\label{subsec:hyp_wirbelstroeme}
+
+Theoretisch gehört diese Ursache zu den wahrscheinlicheren. Der Motor wurde von einer Fremdmaschine angetrieben. Der rotierende Permanentmagnetrotor induziert dabei eine drehzahlabhängige Spannung in den Statorwicklungen und verursacht Eisenverluste (Hysterese und Wirbelströme) im Blechpaket, zusätzlich können Oberwellen der Umrichterspannung Wirbelströme in Rotor und Magneten hervorrufen. Diese Verluste treten auch ohne gestelltes Drehmoment auf und können zu hohen thermischen Belastungen führen.
+
+Gegen diese Theorie spricht, dass die über den Inverter aufgezeichneten Motorströme keine solchen Phänomene erkennen lassen. Dabei ist zu beachten, dass die Strommessung des Inverters in erster Linie die Grundschwingung abbildet und hochfrequente Anteile nicht notwendigerweise auflöst. Der Fehler ist daher hier nur dann nicht zu vermuten, wenn die Qualität der Messinstrumente nicht zu hinterfragen ist.
+
+\subsubsection{Ansteuerung der Inverter}
+\label{subsec:hyp_inverter}
+
+In der Vergangenheit gab es bereits mehrfach Probleme bei der Ansteuerung der Motoren durch die Inverter. Insbesondere der Überspannungsschutz der Inverter führte häufig zu unerwünschtem Verhalten, etwa zu sprunghaft anliegenden, hohen Drehmomenten in den Motoren. In diesen Fällen waren die Inverter anschließend jeweils defekt. Da im vorliegenden Fall kein Defekt festgestellt wurde, ist auch hier zunächst von keiner belegbaren Ursache auszugehen.
+
+\subsubsection{Zusammenfassung der Hypothesen}
+\label{subsec:hyp_zusammenfassung}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Übersicht der Hypothesen zur Schadensursache}
+    \label{tab:hypothesen}
+    \begin{tabular}{|p{3.2cm}|p{4.5cm}|p{4.5cm}|p{1.8cm}|}
+        \hline
+        Hypothese & Hinweise dafür & Einschränkungen / dagegen & Status \\
+        \hline
+        Mechanisches Lagerversagen
+          & Rotor könnte am Stator geschliffen haben
+          & Kein großes Lagerspiel; Lager nicht zerstörungsfrei demontierbar
+          & offen \\
+        \hline
+        Thermisches Lagerversagen
+          & Kombination aus Lagerausfall und Harzzersetzung denkbar
+          & Vordere Lager gekühlt; kein Beweis, reine Vermutung
+          & offen \\
+        \hline
+        Wirbelströme
+          & Fremdantrieb des Motors, theoretisch wahrscheinlich
+          & Keine Auffälligkeiten in den Inverter-Strommessungen
+          & unwahrscheinlich, nicht ausgeschlossen \\
+        \hline
+        Inverter-Ansteuerung
+          & Frühere Probleme mit Überspannungsschutz
+          & Kein Defekt am Inverter, keine Drehmomente geloggt
+          & nicht belegbar \\
+        \hline
+    \end{tabular}
+\end{table}
+
+% =====================================================================
+\section{Bewertung und Lessons Learned}
+\label{sec:fazit_pruefstand}
+% =====================================================================
+
+\subsection{Bewertung der Ergebnisse}
+\label{subsec:bewertung_pruefstand}
+
+Das Fazit der Prüfstandsmessungen fällt gemischt aus. Nach mehreren Wochen Arbeit konnten nur sehr wenige bis gar keine verwertbaren Messwerte ermittelt werden. Vor allem die Integration der Messsysteme in die Prüfstandsumgebung sowie die allgemeine Inbetriebnahme waren sehr zeitintensiv. Schlussendlich konnten keine belastbaren Messwerte erzielt werden. Das in Abschnitt~\ref{subsec:testplan_pruefstand} geplante Messraster konnte daher nur in Teilen abgefahren werden.
+
+Die Loggings der Kalibrierläufe wurden aufgezeichnet. Aus diesen wurde versucht, die gesetzten Ziele -- die Erstellung einer Effizienzkarte und die Messung der Wärmeströme der einzelnen Komponenten -- zu erreichen. Die erhaltenen Karten decken jedoch nur einen Bruchteil der gewählten Bereiche ab, weisen viele Parameteränderungen auf, die im Hintergrund stattfinden, und wirken insgesamt nicht schlüssig. Daher wurde entschieden, für die weitere Auslegung die vom Hersteller mitgelieferten Wirkungsgradkennfelder der Motoren zu verwenden.
+
+Für die Modellierung der Inverter stellt dies eine Herausforderung dar: Bei den Invertern handelt es sich um absolute Prototypen, für die keine Herstellerdaten vorliegen. Es werden daher weitere Möglichkeiten gesucht, die Verlustleistungen der Leistungselektronik sauber abzubilden.
+
+\subsection{Lessons Learned und Ausblick}
+\label{subsec:ausblick_pruefstand}
+
+% TODO: Lessons Learned für die zweite Testphase ergänzen
+% (z.B. dauerhafte Motortemperaturüberwachung mit automatischer Abschaltung während des Versuchs)
+
+Die aufgetretenen Probleme sollen nicht davon ablenken, was im Umfeld erreicht wurde:
+\begin{itemize}
+    \item Eine weitere Motortestphase ist bereits in Planung.
+    \item Die Sensorik wurde überarbeitet und an verschiedenen anderen Stellen weiter validiert. Damit stehen ein fertiges Messsystem sowie eine Planung zur Klassifizierung von Motoren und Leistungselektronik zur Verfügung.
+    \item Sämtliche MATLAB/Simulink-Tools wurden so aufgebaut, dass neu gemessene Daten direkt eingelesen werden können.
+    \item Direkt am Tag nach dem Defekt wurde ein neuer Prüfstandsmotor aus einem noch vorhandenen Reserve-Stator zusammengestellt. Eine Vermessung des Rotors auf Entmagnetisierung in Kombination mit dem Labor Antriebssysteme wurde bereits vereinbart, steht aber noch aus.
+\end{itemize}
+
+Die Validierung der Motorgesundheit und der Aufbau des zweiten Prüfstandslaufs sind aus Zeitgründen nicht mehr Teil dieser Arbeit. Die hier erarbeiteten Grundlagen bieten dem Team jedoch eine solide Basis für den weiteren Aufbau.
