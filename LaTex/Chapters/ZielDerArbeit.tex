@@ -1,17 +1,24 @@
 \chapter{Ziel der Arbeit}
+\label{ch:ziel}
 
-Der Fokus der Arbeit gliedert sich in folgende Kernbereiche:
+Das Ziel dieser Arbeit ist die Vorentwicklung eines Kühlkonzepts für den Formula Student Rennwagen des Dynamics e.V. und der Aufbau der Simulationsgrundlagen, mit denen dieses Konzept bewertet und künftig weiterentwickelt werden kann. Ausgangspunkt ist die in Kapitel~\ref{ch:problemstellung} beschriebene Problemstellung: Die Komponenten sollen auch unter Rennbedingungen innerhalb ihrer Temperaturgrenzen betrieben werden, ohne dass Leistung reduziert werden muss oder Komponenten ausfallen.
 
-\begin{itemize}
-    \item \textbf{Anforderungsanalyse und theoretische Modellierung:} Zu Beginn steht eine fundierte Grundlagenermittlung. Hierbei werden mithilfe von \textit{Motor-CAD} und ggf. \textit{ANSYS Maxwell} detaillierte theoretische Modelle erstellt, um die Verlustleistungen und thermischen Lastpfade der elektrischen Komponenten zu identifizieren.
-    
-    \item \textbf{Systemsimulation in Matlab/Simulink:} Um verschiedene Architekturen des Kühlkreislaufs (z. B. serielle vs. parallele Durchströmung) frühzeitig bewerten zu können, wird ein modulares Simulationsmodell in \textit{Matlab/Simulink} entwickelt. Dies ermöglicht eine quantitative Vergleichbarkeit unterschiedlicher Konzepte hinsichtlich ihrer Effizienz und thermischen Trägheit.
-    
-    \item \textbf{Detaillierte CFD-Untersuchungen:} Zur qualitativen Absicherung der Kühlgeometrien von Motor, Inverter und Akku werden numerische Strömungssimulationen (CFD) durchgeführt. Ziel ist es, lokale Hotspots zu identifizieren und die Wärmeabfuhr durch optimierte Kühlmantel-Designs zu maximieren.
-    
-    \item \textbf{Messtechnik und Validierung:} Ein wesentlicher Bestandteil der Arbeit ist die Auslegung der Sensorik (Durchfluss- und Temperaturmessung) sowohl für den fahrzeugseitigen Einsatz als auch für die Verifikation am Motorprüfstand. Die dort gewonnenen Messdaten dienen der Validierung der zuvor erstellten Simulationsmodelle.
-    
-    \item \textbf{Dokumentation und Parametervariation:} Abschließend erfolgt eine detaillierte Bewertung der Gesamtkühlarchitektur. Durch eine Sensitivitätsanalyse wird ermittelt, welche Parameter die Kühlleistung maßgeblich beeinflussen. Dies soll die zukünftige Auslegung vereinfachen und als Leitfaden für kommende Fahrzeuggenerationen dienen.
-\end{itemize}
+Daraus leiten sich folgende Teilziele ab:
 
-Durch diesen hybriden Ansatz aus Simulation und experimenteller Validierung wird sichergestellt, dass das Kühlsystem nicht nur theoretisch optimal dimensioniert, sondern auch unter realen Bedingungen belastbar ist.
+\begin{enumerate}
+    \item \textbf{Analyse des Ist-Zustands:} Die aufgetretenen Ausfälle werden hinsichtlich Ursachen und Konsequenzen eingeordnet. Die bestehenden Kühlkreisläufe werden hydraulisch charakterisiert, indem Widerstandswerte von Schlauch, Motor, Radiator und Inverter am Fahrzeug bestimmt werden.
+
+    \item \textbf{Messtechnik und Messvorgehen:} Die Sensorik für Volumenstrom, Temperatur und Differenzdruck wird ausgelegt, im Labor validiert und in die Systemarchitektur integriert. Für Motorprüfstand und Fahrzeug wird ein Testplan erarbeitet, der Messpunkte, Fahrmanöver und Randbedingungen festlegt.
+
+    \item \textbf{Charakterisierung der Akkuzellen:} Durch Lade- und Entladeversuche sowie eine thermische Vermessung werden Kennwerte der Akkuzellen ermittelt, die als Grundlage für das Akku-Verlustleistungsmodell dienen.
+
+    \item \textbf{Modellbildung:} Für die relevanten Komponenten (Motoren, Inverter, Akku) werden Verlustleistungs- und Wärmemodelle aufgebaut und in einem modularen Systemmodell in \textit{Matlab/Simulink} zusammengeführt. Dieses ermöglicht den Vergleich verschiedener Kreislaufarchitekturen, etwa serieller und paralleler Durchströmung. Die Modelltiefe ist bewusst begrenzt, damit die Modelle später erweitert werden können, etwa um genauere Akku- oder Motormodelle.
+
+    \item \textbf{Strömungsanalyse:} Mittels CFD werden Kühlgeometrien untersucht, um lokale Hotspots zu identifizieren und Verbesserungspotenzial aufzuzeigen. % PRÜFEN: Umfang und Komponenten der CFD
+
+    \item \textbf{Auslegung und Integration:} Radiator, Lüfter, Pumpen und Kreislauflayout werden dimensioniert und unter Berücksichtigung von Aerodynamik, Package und Wartbarkeit in das Fahrzeug integriert. Das Entlüftungskonzept wird überarbeitet, um den Aufwand bei Events zu verringern.
+
+    \item \textbf{Messungen am Motorprüfstand und Ausblick:} Die Messungen am Motorprüfstand werden vorbereitet und soweit möglich durchgeführt. Auf Basis der Ergebnisse werden Verbesserungsmöglichkeiten für künftige Fahrzeuggenerationen abgeleitet, insbesondere für die Motorenkühlung.
+\end{enumerate}
+
+Die Arbeit verfolgt dabei einen kombinierten Ansatz aus Simulation und experimenteller Absicherung. Nicht Teil der Arbeit sind eine vollständige Validierung der Modelle, eine Sensitivitätsanalyse sowie detaillierte elektromagnetische Motormodelle (z.\,B. mit \textit{ANSYS Maxwell}); sie werden im Ausblick (Kapitel~\ref{ch:fazit}) aufgegriffen. Die Abgrenzung ist in Abschnitt~\ref{sec:einleitung_abgrenzung} beschrieben.
