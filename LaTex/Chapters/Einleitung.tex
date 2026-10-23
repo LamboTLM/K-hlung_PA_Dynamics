@@ -1,3 +1,32 @@
 \chapter{Einleitung}
+\label{ch:einleitung}
 
-Das Ziel dieser Projektarbeit ist die systematische Auslegung, Simulation und Validierung eines ganzheitlichen Kühlkonzepts für einen Formula Student Rennwagen. Angesichts steigender Leistungsdichten in elektrischen Antriebssträngen stellt das thermische Management eine kritische Erfolgskomponente dar, um die Betriebssicherheit der elektrischen Maschinen, Inverter und des Akkumulators unter Rennbedingungen zu gewährleisten.
+\section{Kontext und Motivation}
+\label{sec:einleitung_kontext}
+
+Die Formula Student ist ein internationaler Konstruktionswettbewerb, bei dem Studierende innerhalb einer Saison einen Rennwagen entwickeln, fertigen und in statischen sowie dynamischen Disziplinen gegeneinander antreten lassen. Mit der Leistungsdichte elektrischer Antriebsstränge steigen die Anforderungen an das thermische Management: Elektrische Maschinen, Inverter und der Akkumulator müssen auch unter Rennbedingungen innerhalb ihrer zulässigen Temperaturgrenzen betrieben werden, ohne dass die Fahrleistung eingeschränkt wird.
+
+Beim Dynamics e.V. hat ein unzureichendes Thermomanagement in der Vergangenheit zu erheblichen Einbußen geführt. Neben Leistungsreduzierungen (Derating) kam es zu mehreren sicherheitskritischen Ausfällen während der Fahrt. Komplette Motorausfälle durch den Übertemperaturschutz traten ebenso auf wie thermisch bedingte Schäden an Anbauteilen, darunter Felgen, Dichtungen und Lager. Die Ursachen, Auswirkungen und Konsequenzen dieser Ausfälle werden in Kapitel~\ref{ch:problemstellung} im Detail betrachtet.
+
+Ziel dieser Projektarbeit ist die systematische Auslegung, Simulation und Validierung eines ganzheitlichen Kühlkonzepts für den Rennwagen des Dynamics e.V. Die konkreten Teilziele sind in Kapitel~\ref{ch:ziel} formuliert.
+
+\section{Rahmenbedingungen und Abgrenzung}
+\label{sec:einleitung_abgrenzung}
+
+Die Arbeit wird durch die Rahmenbedingungen eines studentischen Rennteams geprägt. Zeit und Budget sind stark begrenzt. Die Testzeit am Fahrzeug ist knapp, und da nicht absehbar ist, wann das Gesamtfahrzeug für Messungen bereit ist, kann ein Messvorhaben unter Umständen nicht über die Vorbereitung hinauskommen. Eine zusätzliche Instandhaltung des Fahrzeugs durch die Verfasser ist aus Kapazitätsgründen nicht möglich. Hinzu kommt eine lückenhafte Datenlage: Für viele Komponenten liegen keine belastbaren Wirkungsgradkennfelder vor, sodass Kennwerte erst durch Versuche am Motorprüfstand ermittelt oder durch Herstellerangaben ersetzt werden müssen.
+
+Daraus ergibt sich der Schwerpunkt der Arbeit. Im Mittelpunkt stehen die Erarbeitung von Messtechnik und Messvorgehen, die Analyse der bestehenden Kühlsysteme und angrenzenden Systeme sowie die Modellierung der Verlustleistungen der relevanten Komponenten. Auf dieser Basis wird eine erste Auslegung vorgenommen. Die Arbeit versteht sich zugleich als Grundlage für künftige Entwicklungen, in denen die vereinfachten Modelle, etwa das hier entwickelte Akkumodell, durch genauere ersetzt werden können.
+
+Folgende Punkte sind nicht Ziel der Arbeit:
+\begin{itemize}
+    \item Der Aufbau eines perfekten Akku-, Motor- oder Wechselrichtermodells. Die Modelltiefe beschränkt sich auf die Grundlagen, die später erweitert werden können.
+    \item Die Neuentwicklung einzelner Komponenten, etwa eines eigenen Radiators oder Lüfters für den Anwendungsfall. Dimensionierung und Integration in das bestehende Fahrzeug sind dagegen Teil der Arbeit.
+    \item Eine Neuentwicklung der Motorenkühlung. Aus Budgetgründen ist eine Neubeschaffung innerhalb der nächsten Saison nicht möglich. Stattdessen werden Modellierungsansätze und konkrete Verbesserungsmöglichkeiten erarbeitet, die in die künftige Motorauslegung einfließen können.
+\end{itemize}
+
+Nicht alle Komponenten konnten von den Verfassern allein aufgebaut werden. Vor allem im Bereich Elektrotechnik und Mechatronik wurden andere Subteams des Dynamics e.V. hinzugezogen, mit der Entwicklung beauftragt oder in Kooperation beteiligt. Im Mechanischen wurden die erforderlichen Arbeiten selbst ausgeführt, auch dort, wo sie nur mittelbaren Bezug zu dieser Arbeit hatten. Im weiteren Verlauf wird jeweils kenntlich gemacht, wo auf bestehende Strukturen verwiesen wird, wo andere Subteams unterstützt haben und wo Entwicklungen extern stattgefunden haben.
+
+\section{Aufbau der Arbeit}
+\label{sec:einleitung_aufbau}
+
+Die Arbeit gliedert sich wie folgt: Kapitel~\ref{ch:ziel} beschreibt das Ziel der Arbeit, Kapitel~\ref{ch:problemstellung} definiert die Problemstellung mit den aufgetretenen Ausfällen, ihren Ursachen und Konsequenzen. Kapitel~\ref{ch:messtechnik} stellt die Messtechnik und die Systemarchitektur vor. Darauf aufbauend behandelt Kapitel~\ref{ch:testplanung} die Testplanung mit den Grundlagen, Anforderungen und dem relevanten Regelwerk. Kapitel~\ref{ch:systemmodelle} beschreibt die Systemmodelle für Akku und Motoren sowie das Thermonetzwerk. In Kapitel~\ref{ch:messungen} wird die Durchführung der Messungen am Motorprüfstand dokumentiert. Kapitel~\ref{ch:konstruktion} begründet die Konstruktionsentscheidungen für die Integration ins Fahrzeug. Kapitel~\ref{ch:fazit} fasst die Ergebnisse zusammen und gibt einen Ausblick auf künftige Arbeiten.
